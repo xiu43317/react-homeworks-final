@@ -18,38 +18,28 @@ function AdminLogin() {
       [name]: value,
     });
   };
-  const handleLogin = async (e) => {
-    e.preventDefault();
-
+  const handleLogin = async () => {
     try {
-      const res = await axios.post(`${BASE_URL}/api/admin/signin`, account);
-
+      const res = await axios.post(`${BASE_URL}/admin/signin`, account);
       const { token, expired } = res.data;
       document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
-
       axios.defaults.headers.common["Authorization"] = token;
+      alert("登入成功")
+      navigate("/admin");
     } catch (error) {
       console.log(error);
       alert("登入失敗");
     }
   };
-  const checkUserLogin = async () => {
-    try {
-      await axios.post(`${BASE_URL}/api/user/check`);
-      alert("登入成功");
-      navigate("/admin");
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  useEffect(() => {
-    const token = document.cookie.replace(
-      /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
-      "$1"
-    );
-    axios.defaults.headers.common["Authorization"] = token;
-    checkUserLogin();
-  }, []);
+  // const checkUserLogin = async () => {
+  //   try {
+  //     await axios.post(`${BASE_URL}/api/user/check`);
+  //     alert("登入成功");
+  //     navigate("/admin");
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
   return (
     <div className="d-flex flex-column justify-content-center align-items-center vh-100">
       <h1 className="mb-5">請先登入</h1>
@@ -78,7 +68,7 @@ function AdminLogin() {
           />
           <label htmlFor="password">Password</label>
         </div>
-        <button className="btn btn-primary">登入</button>
+        <button type="button" className="btn btn-primary" onClick={handleLogin}>登入</button>
       </form>
       <p className="mt-5 mb-3 text-muted">&copy; 2024~∞ - 六角學院</p>
       <NavLink to={"/"}>
