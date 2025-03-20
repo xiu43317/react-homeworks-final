@@ -1,0 +1,9 @@
+.zoom-in:hover .frame {
+  transform: scale(1.1);
+}
+.zoom-in .frame {
+  transition: 0.5s;
+}
+.zoom-in {
+  overflow: hidden;
+}

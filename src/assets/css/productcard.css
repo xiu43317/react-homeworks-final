@@ -1,0 +1,27 @@
+.bg-img:hover img {
+    transform: scale(1.1);
+  }
+  .bg-img:hover{
+    cursor: pointer;
+  }
+  .title-bg {
+    height: 250px;
+    background-color:rgba(0, 0, 0, 0.5);
+    z-index: -100;
+  }
+  .title-bg p{
+    transition: 0.5s;
+  }
+  .bg-img:hover .title-bg p{
+    transform:translateY(-80px);
+    display: block;
+  }
+  .bg-img:hover .title-bg {
+    z-index: 100;
+  }
+  .card img {
+    transition: 0.5s;
+  }
+  .card .bg-img {
+    overflow: hidden;
+  }

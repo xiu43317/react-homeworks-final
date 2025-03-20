@@ -1,0 +1,16 @@
+.mh-370{
+    min-height: 370px;
+}
+.mw-500{
+    max-width: 500px;
+}
+.input-group-text{
+    border-color: black;
+}
+.form-control{
+    border-color: black;
+}
+.form-control:focus{
+  border-color: white;
+  box-shadow: 0 0 0 0.15rem rgba(0, 0, 0, 0.25);
+}

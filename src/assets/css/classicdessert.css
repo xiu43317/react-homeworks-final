@@ -1,0 +1,15 @@
+.bg{
+    padding: 1px 1px;
+    background-color: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 1.6em rgba(0, 0, 0, 0.16);
+  }
+  .categlory:hover img,.categlory:hover h4{
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+  .categlory img,.categlory h4{
+    transition: 0.5s;
+  }
+  .categlory{
+    overflow: hidden;
+  }
