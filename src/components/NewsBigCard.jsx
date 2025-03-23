@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+import propTypes from "prop-types"
 import { NavLink } from "react-router-dom";
 
 function NewsBigCard({ tempArticle }) {
@@ -41,6 +41,10 @@ function NewsBigCard({ tempArticle }) {
       <hr />
     </>
   );
+}
+
+NewsBigCard.propTypes = {
+  tempArticle: propTypes.object
 }
 
 export default NewsBigCard;

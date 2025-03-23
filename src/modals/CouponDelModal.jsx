@@ -1,9 +1,8 @@
-/* eslint-disable react/prop-types */
+import propTypes from "prop-types"
 function CuponDelModal({coupon}){
     return <>
       <div
     id="delCouponModal"
-    // ref={delCouponModal}
     className="modal fade"
     tabIndex="-1"
     aria-labelledby="delProductModalLabel"
@@ -42,6 +41,10 @@ function CuponDelModal({coupon}){
     </div>
   </div>
     </>
+}
+
+CuponDelModal.propTypes={
+  coupon: propTypes.object
 }
 
 export default CuponDelModal;

@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+import propTypes from "prop-types"
 import { useNavigate } from "react-router-dom";
 
 function FinishPayment({ orderId }) {
@@ -43,6 +43,10 @@ function FinishPayment({ orderId }) {
       </div>
     </>
   );
+}
+
+FinishPayment.propTypes= {
+  orderId: propTypes.string
 }
 
 export default FinishPayment;

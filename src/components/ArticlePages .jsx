@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+import PropTypes from 'prop-types';
 import { useEffect, useState } from "react";
 import api from "../api/axios";
 import { notify } from "../api/toast";
@@ -122,6 +122,10 @@ function ArticlePages({ num }) {
       </div>
     </>
   );
+}
+
+ArticlePages.propTypes = {
+  num: PropTypes.string
 }
 
 export default ArticlePages;

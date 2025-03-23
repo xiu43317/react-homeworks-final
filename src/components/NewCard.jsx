@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+import propTypes from "prop-types"
 import { NavLink } from "react-router-dom";
 import "../assets/css/newcard.css"
 import AOS from 'aos';
@@ -31,6 +31,10 @@ function NewCard({ oneNews }) {
       </div>
     </>
   );
+}
+
+NewCard.propTypes = {
+  oneNews:propTypes.object
 }
 
 export default NewCard;

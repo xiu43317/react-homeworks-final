@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+import propTypes from "prop-types"
 import { useState } from "react";
 import { delFloat } from "../api/math";
 import { useEffect } from "react";
@@ -183,6 +183,10 @@ function ProductOrderCard({ cart }) {
       <hr />
     </>
   );
+}
+
+ProductOrderCard.propTypes={
+  cart: propTypes.object
 }
 
 export default ProductOrderCard;

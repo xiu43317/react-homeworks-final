@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+import propTypes, { object } from "prop-types"
 import { useEffect, useRef } from "react";
 import { Modal } from "bootstrap";
 import axios from "axios";
@@ -87,6 +87,13 @@ function DeleteModal({ getProducts, isOpen, setIsOpen, tempProduct }) {
       </div>
     </div>
   );
+}
+
+DeleteModal.propTypes = {
+  getProducts: propTypes.func,
+  isOpen: propTypes.bool,
+  setIsOpen: propTypes.func,
+  tempProduct: object
 }
 
 export default DeleteModal;

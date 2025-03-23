@@ -1,4 +1,5 @@
-/* eslint-disable react/prop-types */
+import PropTypes from "prop-types";
+
 function FlowChart({ progress }) {
   return (
     <>
@@ -52,6 +53,10 @@ function FlowChart({ progress }) {
       </div>
     </>
   );
+}
+
+FlowChart.propTypes={
+  progress: PropTypes.number
 }
 
 export default FlowChart;

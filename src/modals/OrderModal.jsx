@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+import propTypes from "prop-types"
 import { useEffect, useState, useRef } from "react";
 import { Modal } from "bootstrap";
 
@@ -204,6 +204,13 @@ function OrderModal({ tempOrder, isOpen, setIsOpen, updatePaid }) {
       </div>
     </>
   );
+}
+
+OrderModal.propTypes = {
+  tempOrder: propTypes.object,
+  isOpen: propTypes.bool,
+  setIsOpen: propTypes.func,
+  updatePaid: propTypes.func
 }
 
 export default OrderModal;

@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+import propType from "prop-types"
 import "../assets/css/carditem.css";
 import { delFloat } from "../api/math";
 import { useState,useEffect } from "react";
@@ -6,7 +6,7 @@ import { notify } from "../api/toast";
 
 function CardItem({ cart, removable, isBtnDisabled, deleteItem, updateItem }) {
   const [qty, setQty] = useState(cart.qty);
-  const {isRemovable} = removable
+  const { isRemovable } = removable
   let add = false
   const getTheQty = (e) => {
     console.log(e.target.value)
@@ -117,6 +117,14 @@ function CardItem({ cart, removable, isBtnDisabled, deleteItem, updateItem }) {
       <hr />
     </>
   );
+}
+
+CardItem.propTypes={
+  cart:propType.object,
+  removable: propType.object,
+  isBtnDisabled: propType.bool,
+  deleteItem: propType.func,
+  updateItem: propType.func
 }
 
 export default CardItem;

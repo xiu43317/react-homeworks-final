@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+import propTypes from "prop-types"
 import "../assets/css/productcard.css";
 import { useNavigate } from "react-router-dom";
 import api from "../api/axios";
@@ -116,6 +116,10 @@ function ProductCard({ product }) {
       </div>
     </>
   );
+}
+
+ProductCard.propTypes={
+  product: propTypes.object
 }
 
 export default ProductCard;

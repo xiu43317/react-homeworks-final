@@ -1,7 +1,8 @@
-/* eslint-disable react/prop-types */
+import propTypes from "prop-types"
 import { useEffect, useRef } from "react";
 import { Modal } from "bootstrap";
 import axios from "axios";
+
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
@@ -93,6 +94,14 @@ function DeleteArticleModal({ getArticles, isOpen, setIsOpen, tempArticle, setIs
       </div>
     </div>
   );
+}
+
+DeleteArticleModal.propTypes = {
+  getArticles: propTypes.func,
+  isOpen: propTypes.bool,
+  setIsOpen: propTypes.func,
+  tempArticle: propTypes.object,
+  setIsScreenLoading: propTypes.func
 }
 
 export default DeleteArticleModal;

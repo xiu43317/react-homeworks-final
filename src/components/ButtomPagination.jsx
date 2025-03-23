@@ -1,4 +1,5 @@
-/* eslint-disable react/prop-types */
+import propTypes from "prop-types"
+
 function ButtomPagination({pageInfo,handlePageChange,category}) {
     return (
       <div className="d-flex justify-content-center">
@@ -46,5 +47,11 @@ function ButtomPagination({pageInfo,handlePageChange,category}) {
     );
   }
   
+ButtomPagination.propTypes={
+  pageInfo: propTypes.object,
+  handlePageChange: propTypes.func,
+  category: propTypes.string
+}
+
   export default ButtomPagination;
   

@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+import propTypes from "prop-types"
 import "../assets/css/classicdessert.css";
 import { useNavigate } from "react-router-dom";
 import "aos/dist/aos.css";
@@ -21,6 +21,13 @@ function ClassicDessert({ link, title, imgUrl ,fade}) {
         </div>
       </div>
   );
+}
+
+ClassicDessert.propTypes={
+  link: propTypes.string,
+  title: propTypes.string,
+  imgUrl: propTypes.string,
+  fade: propTypes.string
 }
 
 export default ClassicDessert;

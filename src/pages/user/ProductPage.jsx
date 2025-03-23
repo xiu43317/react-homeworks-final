@@ -17,7 +17,6 @@ function ProductPage() {
   const isCartLoading = useSelector((state)=>state.cart.isCartLoading)
   const cart = useSelector((state)=>state.cart.carts)
   const dispatch = useDispatch();
-  // const { id: product_id } = useParams();
   const [products, setProducts] = useState([]);
   const [tempProduct, setTempProduct] = useState({});
   const [qtySelect, setQtySelect] = useState(1);
@@ -219,15 +218,12 @@ function ProductPage() {
         <div className="swiper-container position-relative" data-aos="fade-up" data-aos-duration="1000" data-aos-once="false">
           {dataReady ? (
             <Swiper
-              // install Swiper modules
               modules={[Autoplay, Navigation, Pagination]}
               autoplay={true}
               loop={true}
               spaceBetween={10}
               navigation={true}
               pagination={{ clickable: true }}
-              // onSwiper={(swiper) => console.log(swiper)}
-              // onSlideChange={() => console.log("slide change")}
               breakpoints={{
                 768: {
                   slidesPerView: 2,
@@ -247,15 +243,12 @@ function ProductPage() {
             </Swiper>
           ) : (
             <Swiper
-              // install Swiper modules
               modules={[Autoplay, Navigation, Pagination]}
               autoplay={true}
               spaceBetween={10}
               loop={true}
               navigation={true}
               pagination={{ clickable: true }}
-              // onSwiper={(swiper) => console.log(swiper)}
-              // onSlideChange={() => console.log("slide change")}
               breakpoints={{
                 768: {
                   slidesPerView: 2,

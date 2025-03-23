@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useParams } from "react-router";
 import api from "../../api/axios";
 import { useEffect, useState } from "react";

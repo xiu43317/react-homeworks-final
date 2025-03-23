@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+import propTypes from "prop-types"
 import { useEffect, useState } from "react";
 import CardItem from "./CardItem";
 import { delFloat } from "../api/math";
@@ -101,6 +101,11 @@ function OrderDetail({ order, payOrder }) {
       )}
     </>
   );
+}
+
+OrderDetail.propTypes={
+  order: propTypes.object,
+  payOrder: propTypes.func
 }
 
 export default OrderDetail;

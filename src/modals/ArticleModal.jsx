@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+import propTypes from "prop-types"
 import { useEffect, useState, useRef } from "react";
 import { Modal } from "bootstrap";
 import axios from "axios";
@@ -6,7 +6,7 @@ import { EditorState, ContentState, convertFromHTML } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { stateToHTML } from "draft-js-export-html"
-// import { create } from "draft-js/lib/CharacterMetadata";
+
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
@@ -394,6 +394,15 @@ function ArticleModal({
       )}
     </>
   );
+}
+
+ArticleModal.propTypes={
+  modalMode: propTypes.string,
+  tempArticle: propTypes.object,
+  isOpen: propTypes.bool,
+  setIsOpen: propTypes.func,
+  getArticles: propTypes.func,
+  setIsScreenLoading: propTypes.func
 }
 
 export default ArticleModal;

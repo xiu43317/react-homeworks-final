@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+import propTypes from "prop-types"
 import { useRef, useEffect, useState } from "react";
 import { Modal } from "bootstrap";
 import axios from "axios";
@@ -209,6 +209,14 @@ function CouponModal({ modalMode, tempCoupon, isOpen, setIsOpen, getCoupons }) {
       </div>
     </>
   );
+}
+
+CouponModal.propTypes={
+  modalMode: propTypes.string,
+  tempCoupon: propTypes.object,
+  isOpen: propTypes.bool,
+  setIsOpen: propTypes.func,
+  getCoupons: propTypes.func
 }
 
 export default CouponModal;

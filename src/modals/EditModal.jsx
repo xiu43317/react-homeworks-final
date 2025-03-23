@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+import propTypes from "prop-types"
 import { useEffect, useState, useRef } from "react";
 import { Modal } from "bootstrap";
 import axios from "axios";
@@ -137,7 +137,7 @@ function ProductModal({
   return (
     <div
       id="productModal"
-      className="modal"
+      className="modal fade"
       ref={productModalRef}
       style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
     >
@@ -415,6 +415,14 @@ function ProductModal({
       </div>
     </div>
   );
+}
+
+ProductModal.propTypes = {
+  modalMode: propTypes.string,
+  isOpen: propTypes.bool,
+  setIsOpen: propTypes.func,
+  tempProduct: propTypes.object,
+  getProducts: propTypes.func
 }
 
 export default ProductModal;
