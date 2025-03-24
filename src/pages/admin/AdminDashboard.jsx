@@ -2,13 +2,14 @@ import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { NavLink, Outlet } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 const url = import.meta.env.VITE_BASE_URL;
 
 function AdminDashboard() {
   const [isAuth, setIsAuth] = useState(false);
   const navigate = useNavigate();
-  const checkLogin = useCallback(async() => {
+  const checkLogin = useCallback(async () => {
     const token = document.cookie.replace(
       /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
       "$1"
@@ -23,25 +24,27 @@ function AdminDashboard() {
         alert(error.response.data.message);
         navigate("/Login");
       });
-  },[navigate]) 
+  }, [navigate]);
   const signOut = (e) => {
-    e.preventDefault()
-    axios.post(`${url}/logout`)
+    e.preventDefault();
+    axios
+      .post(`${url}/logout`)
       .then((res) => {
-        alert(res.data.message)
-        document.cookie = 'hexToken=;expires=;'
-        navigate('/login')
+        alert(res.data.message);
+        document.cookie = "hexToken=;expires=;";
+        navigate("/login");
       })
       .catch((err) => {
-        alert(err.response.data.message)
-      })
-  }
-  useEffect(()=>{
-    checkLogin()
-  },[checkLogin])
+        alert(err.response.data.message);
+      });
+  };
+  useEffect(() => {
+    checkLogin();
+  }, [checkLogin]);
 
   return (
     <>
+      <ToastContainer />
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
           <NavLink to="/admin/products" className="navbar-brand">
@@ -84,9 +87,7 @@ function AdminDashboard() {
           </div>
         </div>
       </nav>
-      {
-        isAuth && <Outlet/>
-      }
+      {isAuth && <Outlet />}
     </>
   );
 }

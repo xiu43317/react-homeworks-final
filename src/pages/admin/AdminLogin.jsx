@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { notify } from "../../api/toast";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -26,20 +27,10 @@ function AdminLogin() {
       axios.defaults.headers.common["Authorization"] = token;
       alert("登入成功")
       navigate("/admin");
-    } catch (error) {
-      console.log(error);
-      alert("登入失敗");
+    } catch (err) {
+      notify(err.response.data.message)
     }
   };
-  // const checkUserLogin = async () => {
-  //   try {
-  //     await axios.post(`${BASE_URL}/api/user/check`);
-  //     alert("登入成功");
-  //     navigate("/admin");
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
   return (
     <div className="d-flex flex-column justify-content-center align-items-center vh-100">
       <h1 className="mb-5">請先登入</h1>

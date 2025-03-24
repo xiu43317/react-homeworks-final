@@ -2,6 +2,7 @@ import propTypes from "prop-types"
 import { useEffect, useRef } from "react";
 import { Modal } from "bootstrap";
 import axios from "axios";
+import { notify } from "../api/toast";
 
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -14,9 +15,8 @@ function DeleteArticleModal({ getArticles, isOpen, setIsOpen, tempArticle, setIs
       await deleteArticle(tempArticle.id);
       getArticles();
       handleDelCloseProductModal();
-    } catch (error) {
-      console.log(error);
-      alert("刪除文章失敗");
+    } catch (err) {
+      notify(err.response.data.message)
     }
   };
   const handleDelCloseProductModal = () => {

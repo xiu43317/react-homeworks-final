@@ -2,6 +2,7 @@ import propTypes, { bool } from "prop-types"
 import { useEffect, useRef } from "react";
 import { Modal } from "bootstrap";
 import axios from "axios";
+import { notify } from "../api/toast";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
@@ -13,9 +14,8 @@ function DeleteCouponModal({ getCoupons, isOpen, setIsOpen, tempCoupon }) {
       await deleteCoupon();
       getCoupons();
       handleDelCloseCouponModal();
-    } catch (error) {
-      console.log(error);
-      alert("刪除產品失敗");
+    } catch (err) {
+      notify(err.response.data.message)
     }
   };
   const handleDelCloseCouponModal = () => {

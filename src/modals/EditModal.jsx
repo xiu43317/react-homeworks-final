@@ -2,6 +2,7 @@ import propTypes from "prop-types"
 import { useEffect, useState, useRef } from "react";
 import { Modal } from "bootstrap";
 import axios from "axios";
+import { notify } from "../api/toast";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
@@ -64,8 +65,8 @@ function ProductModal({
         ...modalData,
         imageUrl: uploadImageUrl,
       });
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      notify(err.response.data.message)
     }
   };
   const handleUpdateProduct = async () => {
@@ -74,9 +75,8 @@ function ProductModal({
       await apiCall();
       getProducts();
       handleCloseProductModal();
-    } catch (error) {
-      console.log(error);
-      alert("產品更新失敗");
+    } catch (err) {
+      notify(err.response.data.message)
     }
   };
   const handleCloseProductModal = () => {
@@ -94,9 +94,8 @@ function ProductModal({
           is_enabled: modalData.is_enabled ? 1 : 0,
         },
       });
-    } catch (error) {
-      console.log * error;
-      alert("新增產品失敗");
+    } catch (err) {
+      notify(err.response.data.message)
     }
   };
   const updateProduct = async () => {
@@ -112,9 +111,8 @@ function ProductModal({
           },
         }
       );
-    } catch (error) {
-      console.log(error);
-      alert("編輯產品失敗");
+    } catch (err) {
+      notify(err.response.data.message)
     }
   };
   useEffect(() => {

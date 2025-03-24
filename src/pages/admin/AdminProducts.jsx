@@ -4,6 +4,7 @@ import ButtomPagination from "../../components/ButtomPagination";
 import EditModal from "../../modals/EditModal";
 import DeleteModal from "../../modals/DeleteModal";
 import ReactLoading from "react-loading";
+import { notify } from "../../api/toast";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
@@ -39,9 +40,8 @@ function AdminProducts() {
       setProducts(res.data.products);
       setPageInfo(res.data.pagination);
       setIsScreenLoading(false);
-    } catch (error) {
-      console.log(error);
-      alert("取得產品失敗");
+    } catch (err) {
+      notify(err.response.data.message)
       setIsScreenLoading(false);
     }
   };

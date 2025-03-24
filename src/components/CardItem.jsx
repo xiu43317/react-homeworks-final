@@ -8,9 +8,6 @@ function CardItem({ cart, removable, isBtnDisabled, deleteItem, updateItem }) {
   const [qty, setQty] = useState(cart.qty);
   const { isRemovable } = removable
   let add = false
-  const getTheQty = (e) => {
-    console.log(e.target.value)
-  };
   const updateCart = (qty) => {
     if (qty< 1) {
       notify(false, '數量不得小於1')
@@ -75,12 +72,11 @@ function CardItem({ cart, removable, isBtnDisabled, deleteItem, updateItem }) {
                   </button>
                 }
                   <input
-                    disabled={isBtnDisabled || isRemovable}
+                    disabled
                     type="number"
                     className="form-control text-center"
                     value={qty}
                     min="1"
-                    onChange={(e) => getTheQty(e)}
                   />
                   { isRemovable &&
                   <button

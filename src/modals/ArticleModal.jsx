@@ -6,6 +6,7 @@ import { EditorState, ContentState, convertFromHTML } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { stateToHTML } from "draft-js-export-html";
+import { notify } from "../api/toast";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
@@ -45,8 +46,8 @@ function ArticleModal({
         ...modalData,
         imageUrl: uploadImageUrl,
       });
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      notify(err.response.data.message)
     }
   };
   const updateArticle = (item) => {

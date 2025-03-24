@@ -2,6 +2,7 @@ import propTypes, { object } from "prop-types"
 import { useEffect, useRef } from "react";
 import { Modal } from "bootstrap";
 import axios from "axios";
+import { notify } from "../api/toast";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
@@ -13,9 +14,8 @@ function DeleteModal({ getProducts, isOpen, setIsOpen, tempProduct }) {
       await deleteProduct();
       getProducts();
       handleDelCloseProductModal();
-    } catch (error) {
-      console.log(error);
-      alert("刪除產品失敗");
+    } catch (err) {
+      notify(err.response.data.message)
     }
   };
   const handleDelCloseProductModal = () => {
@@ -28,9 +28,8 @@ function DeleteModal({ getProducts, isOpen, setIsOpen, tempProduct }) {
       await axios.delete(
         `${BASE_URL}/api/${API_PATH}/admin/product/${tempProduct.id}`
       );
-    } catch (error) {
-      console.log(error);
-      alert("刪除產品失敗");
+    } catch (err) {
+      notify(err.response.data.message)
     }
   };
   useEffect(() => {

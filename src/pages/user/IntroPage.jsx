@@ -147,10 +147,8 @@ function IntroPage() {
               navigation={true}
               pagination={{ clickable: true }}
               onSwiper={(swiper) => {
-                // console.log(swiper);
                 setSwiper(swiper);
               }}
-              // onSlideChange={() => console.log("slide change")}
               breakpoints={{
                 768: {
                   slidesPerView: 2,
@@ -196,7 +194,6 @@ function IntroPage() {
               onSwiper={(swiper) => {
                 setSwiper(swiper);
               }}
-              // onSlideChange={() => console.log("slide change")}
               breakpoints={{
                 768: {
                   slidesPerView: 2,
