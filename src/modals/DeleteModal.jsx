@@ -15,7 +15,7 @@ function DeleteModal({ getProducts, isOpen, setIsOpen, tempProduct }) {
       getProducts();
       handleDelCloseProductModal();
     } catch (err) {
-      notify(err.response.data.message)
+      notify(false,err.response.data.message)
     }
   };
   const handleDelCloseProductModal = () => {
@@ -29,7 +29,7 @@ function DeleteModal({ getProducts, isOpen, setIsOpen, tempProduct }) {
         `${BASE_URL}/api/${API_PATH}/admin/product/${tempProduct.id}`
       );
     } catch (err) {
-      notify(err.response.data.message)
+      notify(false,err.response.data.message)
     }
   };
   useEffect(() => {

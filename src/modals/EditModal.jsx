@@ -66,7 +66,7 @@ function ProductModal({
         imageUrl: uploadImageUrl,
       });
     } catch (err) {
-      notify(err.response.data.message)
+      notify(false,err.response.data.message)
     }
   };
   const handleUpdateProduct = async () => {
@@ -76,7 +76,7 @@ function ProductModal({
       getProducts();
       handleCloseProductModal();
     } catch (err) {
-      notify(err.response.data.message)
+      notify(false,err.response.data.message)
     }
   };
   const handleCloseProductModal = () => {
@@ -95,7 +95,7 @@ function ProductModal({
         },
       });
     } catch (err) {
-      notify(err.response.data.message)
+      notify(false,err.response.data.message)
     }
   };
   const updateProduct = async () => {
@@ -112,7 +112,7 @@ function ProductModal({
         }
       );
     } catch (err) {
-      notify(err.response.data.message)
+      notify(false,err.response.data.message)
     }
   };
   useEffect(() => {

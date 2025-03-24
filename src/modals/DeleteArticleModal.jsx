@@ -16,7 +16,7 @@ function DeleteArticleModal({ getArticles, isOpen, setIsOpen, tempArticle, setIs
       getArticles();
       handleDelCloseProductModal();
     } catch (err) {
-      notify(err.response.data.message)
+      notify(false,err.response.data.message)
     }
   };
   const handleDelCloseProductModal = () => {

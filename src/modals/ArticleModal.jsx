@@ -47,7 +47,7 @@ function ArticleModal({
         imageUrl: uploadImageUrl,
       });
     } catch (err) {
-      notify(err.response.data.message)
+      notify(false,err.response.data.message)
     }
   };
   const updateArticle = (item) => {

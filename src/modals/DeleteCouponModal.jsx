@@ -15,7 +15,7 @@ function DeleteCouponModal({ getCoupons, isOpen, setIsOpen, tempCoupon }) {
       getCoupons();
       handleDelCloseCouponModal();
     } catch (err) {
-      notify(err.response.data.message)
+      notify(false,err.response.data.message)
     }
   };
   const handleDelCloseCouponModal = () => {

@@ -41,7 +41,7 @@ function AdminProducts() {
       setPageInfo(res.data.pagination);
       setIsScreenLoading(false);
     } catch (err) {
-      notify(err.response.data.message)
+      notify(false,err.response.data.message)
       setIsScreenLoading(false);
     }
   };
