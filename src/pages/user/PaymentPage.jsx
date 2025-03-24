@@ -2,7 +2,7 @@ import queryString from "query-string";
 import ReactLoading from "react-loading";
 import { useLocation } from "react-router-dom";
 import api from "../../api/axios";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { notify } from "../../api/toast";
 import FlowChart from "../../components/FlowChart";
 import FinishPayment from "../../components/FinishPayment";
@@ -16,10 +16,10 @@ function PaymentPage() {
   const [isPaid,setIsPaid] = useState(false)
   const [progress,setProgress] = useState(50)
   const [order,setOrder] = useState({})
-  const getOrder = (id) => {
+  const getOrder = useCallback(() => {
     setIsScreenLoading(true);
     api
-      .getOrder(id)
+      .getOrder(parsed.id)
       .then((res) => {
         setOrder(res.data.order)
         if (order.is_paid === true) {
@@ -33,7 +33,7 @@ function PaymentPage() {
         notify(err.response.data.message);
         setIsScreenLoading(false);
       });
-  };
+  },[order.is_paid, parsed.id]) 
   const payOrder = () => {
     setIsScreenLoading(true);
     api
@@ -51,8 +51,8 @@ function PaymentPage() {
       });
   };
   useEffect(()=>{
-    getOrder(parsed.id)
-  },[])
+    getOrder()
+  },[getOrder])
   return (
     <>
       {dataReady && <FlowChart progress={progress}/>}

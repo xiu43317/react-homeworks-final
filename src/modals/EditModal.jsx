@@ -128,7 +128,7 @@ function ProductModal({
       modalInstance.show();
       setModalData(tempProduct)
     }
-  }, [isOpen]);
+  }, [isOpen, tempProduct]);
   useEffect(() => {
     setModalData({
       ...tempProduct,

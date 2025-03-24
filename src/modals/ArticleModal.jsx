@@ -1,12 +1,11 @@
-import propTypes from "prop-types"
+import propTypes from "prop-types";
 import { useEffect, useState, useRef } from "react";
 import { Modal } from "bootstrap";
 import axios from "axios";
 import { EditorState, ContentState, convertFromHTML } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { stateToHTML } from "draft-js-export-html"
-
+import { stateToHTML } from "draft-js-export-html";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
@@ -19,13 +18,13 @@ function ArticleModal({
   getArticles,
   setIsScreenLoading,
 }) {
-  let updateData = {}
-  const ToHtml = (state)=> stateToHTML(state)
+  const ToHtml = (state) => stateToHTML(state);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
-//   const htmlToPlainText = (html) => html.replace(/<[^>]*>/g, "");
+  //   const htmlToPlainText = (html) => html.replace(/<[^>]*>/g, "");
   const productModalRef = useRef(null);
   const [content, setContent] = useState("");
   const [modalData, setModalData] = useState(tempArticle);
+  const [updateData,setUpdateData] = useState(tempArticle)
   const handleCloseProductModal = () => {
     const modalInstance = Modal.getInstance(productModalRef.current);
     modalInstance.hide();
@@ -90,13 +89,15 @@ function ArticleModal({
       ...modalData,
       [name]: type === "checkbox" ? checked : value,
     });
+    if(type==="date"){
+      setUpdateData({
+        ...modalData,
+        create_at: Number(Math.floor(new Date(value) / 1000)),
+      })
+    }
   };
   const handleAllData = () => {
-    updateData = {
-        ...modalData,
-        create_at: Number(Math.floor(new Date(modalData.create_at) / 1000))
-    }
-    updateArticle(updateData)
+    updateArticle(updateData);
   };
   const pushTag = () => {
     let newTags = [...modalData.tag];
@@ -123,21 +124,23 @@ function ArticleModal({
       tag: newTags,
     });
   };
-  
-  useEffect(()=>{
-    const NewContent = ToHtml(editorState.getCurrentContent())
-    setContent(NewContent)
-  },[editorState])
+
+  useEffect(() => {
+    const NewContent = ToHtml(editorState.getCurrentContent());
+    setContent(NewContent);
+  }, [editorState]);
   useEffect(() => {
     new Modal(productModalRef.current, {
       backdrop: false,
     });
   }, []);
   useEffect(() => {
-    setModalData({
+    setModalData((modalData) =>
+      setModalData({
         ...modalData,
-        content
-    })
+        content,
+      })
+    );
   }, [content]);
   useEffect(() => {
     if (isOpen) {
@@ -147,17 +150,17 @@ function ArticleModal({
       const blocksFromHTML = convertFromHTML(tempArticle.content);
       const state = ContentState.createFromBlockArray(
         blocksFromHTML.contentBlocks,
-        blocksFromHTML.entityMap,
+        blocksFromHTML.entityMap
       );
-      setEditorState(EditorState.createWithContent(state))
+      setEditorState(EditorState.createWithContent(state));
     }
-  }, [isOpen]);
+  }, [isOpen, tempArticle]);
   useEffect(() => {
-    updateData = {...tempArticle}
     setModalData({
       ...tempArticle,
-      create_at:new Date(tempArticle.create_at * 1000).toISOString()
-.split('T')[0]
+      create_at: new Date(tempArticle.create_at * 1000)
+        .toISOString()
+        .split("T")[0],
     });
   }, [tempArticle]);
   return (
@@ -266,7 +269,7 @@ function ArticleModal({
                       標籤
                     </label>
                     <div className="row gx-1 mb-3">
-                      { modalData.tag.map((label, key) => (
+                      {modalData.tag.map((label, key) => (
                         <div className="col-md-2 mb-1" key={key}>
                           <div className="input-group input-group-sm">
                             <input
@@ -320,11 +323,7 @@ function ArticleModal({
                       >
                         <Editor
                           toolbar={{
-                            options: [
-                              "inline",
-                              "textAlign",
-                              "history",
-                            ],
+                            options: ["inline", "textAlign", "history"],
                             inline: {
                               options: ["italic", "bold"],
                               bold: { className: "demo-option-custom" },
@@ -396,13 +395,13 @@ function ArticleModal({
   );
 }
 
-ArticleModal.propTypes={
+ArticleModal.propTypes = {
   modalMode: propTypes.string,
   tempArticle: propTypes.object,
   isOpen: propTypes.bool,
   setIsOpen: propTypes.func,
   getArticles: propTypes.func,
-  setIsScreenLoading: propTypes.func
-}
+  setIsScreenLoading: propTypes.func,
+};
 
 export default ArticleModal;

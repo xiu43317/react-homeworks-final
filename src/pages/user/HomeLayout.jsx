@@ -1,7 +1,7 @@
 import { NavLink, Outlet } from "react-router-dom";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import ButtomBanner from "../../components/ButtomBanner";
 import { ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
@@ -118,7 +118,7 @@ function Homelayout() {
         setClearButtonDisable(false)
       })
   }
-  const getCart = () => {
+  const getCart = useCallback(() => {
     api
       .getCart()
       .then((res) => {
@@ -131,14 +131,14 @@ function Homelayout() {
     setIsLoading(false);
     setIsBtnDisabled(false);
     setClearButtonDisable(false);
-  };
+  },[dispatch]) 
   const goToShop = ()=>{
     navigate('/products')
   }
   useEffect(() => {
     getCart();
     AOS.init();
-  }, []);
+  }, [getCart]);
   return (
     <>
       <ToastContainer />

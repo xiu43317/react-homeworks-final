@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import api from "../api/axios";
 import { notify } from "../api/toast";
 import { NavLink } from "react-router-dom";
@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 function ArticlePages({ num }) {
   const [prevPageId, setPrevPageId] = useState({});
   const [nextPageId, setNextPageId] = useState({});
-  const getPages = () => {
+  const getPages = useCallback(() => {
     let numInt = parseInt(num);
     // 剛好是這頁的最後一頁
     if (numInt % 10 === 0) {
@@ -80,10 +80,10 @@ function ArticlePages({ num }) {
           notify(false, err.response.data.message);
         });
     }
-  };
+  },[num]) 
   useEffect(() => {
     getPages();
-  }, [num]);
+  }, [getPages]);
   return (
     <>
       <div className="container mt-5">

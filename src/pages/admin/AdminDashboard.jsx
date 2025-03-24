@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { NavLink, Outlet } from "react-router-dom";
@@ -8,13 +8,13 @@ const url = import.meta.env.VITE_BASE_URL;
 function AdminDashboard() {
   const [isAuth, setIsAuth] = useState(false);
   const navigate = useNavigate();
-  const checkLogin = () => {
+  const checkLogin = useCallback(async() => {
     const token = document.cookie.replace(
       /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
       "$1"
     );
     axios.defaults.headers.common.Authorization = token;
-    axios
+    await axios
       .post(`${url}/api/user/check`)
       .then(() => {
         setIsAuth(true);
@@ -23,7 +23,7 @@ function AdminDashboard() {
         alert(error.response.data.message);
         navigate("/Login");
       });
-  };
+  },[navigate]) 
   const signOut = (e) => {
     e.preventDefault()
     axios.post(`${url}/logout`)
@@ -38,7 +38,7 @@ function AdminDashboard() {
   }
   useEffect(()=>{
     checkLogin()
-  },[])
+  },[checkLogin])
 
   return (
     <>

@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import api from "../../api/axios";
 import ReactLoading from "react-loading";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { notify } from "../../api/toast";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
@@ -21,7 +21,7 @@ function ProductPage() {
   const [tempProduct, setTempProduct] = useState({});
   const [qtySelect, setQtySelect] = useState(1);
   const [dataReady, setDataReady] = useState(false);
-  const getProduct = () => {
+  const getProduct = useCallback(() => {
     setIsScreenLoading(true);
     api
       .getProduct(params.id)
@@ -32,8 +32,8 @@ function ProductPage() {
         notify(false, err.response.data.message);
         setIsScreenLoading(false);
       });
-  };
-  const getProducts = () => {
+  },[params.id]) 
+  const getProducts = useCallback(() => {
     api
       .getProducts(1, tempProduct.category)
       .then((res) => {
@@ -45,7 +45,7 @@ function ProductPage() {
         notify(err.response.data.message);
         setIsScreenLoading(false);
       });
-  };
+  },[tempProduct]) 
 
   const getCart = () => {
     api
@@ -98,10 +98,10 @@ function ProductPage() {
   }
   useEffect(() => {
     getProduct();
-  }, [params]);
+  }, [getProduct]);
   useEffect(() => {
     getProducts();
-  }, [tempProduct]);
+  }, [getProducts]);
   return (
     <>
       {isScreenLoading && (

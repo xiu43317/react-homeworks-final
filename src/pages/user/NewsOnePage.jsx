@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
 import api from "../../api/axios";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import ReactLoading from "react-loading";
 import ArticlePages from "../../components/ArticlePages ";
@@ -11,10 +11,10 @@ function NewsOnePage() {
   const [isScreenLoading, setIsScreenLoading] = useState(false);
   const [article, setArticle] = useState({});
   const [num, setNum] = useState("");
-  const getArticle = (id) => {
+  const getArticle = useCallback(() => {
     setIsScreenLoading(true);
     api
-      .getArticle(id)
+      .getArticle(param.id)
       .then((res) => {
         setArticle({
           ...res.data.article,
@@ -29,10 +29,10 @@ function NewsOnePage() {
         notify(err.response.data.message)
         setIsScreenLoading(false);
       });
-  };
+  },[param]) 
   useEffect(() => {
-    getArticle(param.id);
-  }, [param]);
+    getArticle();
+  }, [getArticle]);
   return (
     <>
       {isScreenLoading && (

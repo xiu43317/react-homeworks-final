@@ -18,8 +18,20 @@ function CouponModal({ modalMode, tempCoupon, isOpen, setIsOpen, getCoupons }) {
     const { value, name, checked, type } = e.target;
     setModalData({
       ...modalData,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: type === "checkbox" ? Number(checked) : value,
     });
+    if(name === "percent"){
+      setModalData({
+        ...modalData,
+        percent: Number(value)
+      })
+    }else if(type==="date"){
+      setModalData({
+        ...modalData,
+        format_date: value,
+        due_date: Math.floor(new Date(value) / 1000),
+      })
+    }
   };
   const updateCoupon = (mode) => {
     if (modalData.percent < 1) alert("折扣百分比不得小於1");
@@ -66,30 +78,13 @@ function CouponModal({ modalMode, tempCoupon, isOpen, setIsOpen, getCoupons }) {
       const modalInstance = Modal.getInstance(couponModalRef.current);
       modalInstance.hide();
     }
-  }, [isOpen]);
+  }, [isOpen, tempCoupon]);
   useEffect(() => {
     setModalData({
       ...tempCoupon,
     });
   }, [tempCoupon]);
-  useEffect(() => {
-    setModalData({
-      ...modalData,
-      due_date: Math.floor(new Date(modalData.format_date) / 1000),
-    });
-  }, [modalData.format_date]);
-  useEffect(() => {
-    setModalData({
-      ...modalData,
-      is_enabled: Number(modalData.is_enabled),
-    });
-  }, [modalData.is_enabled]);
-  useEffect(()=>{
-    setModalData({
-        ...modalData,
-        percent: Number(modalData.percent),
-      });
-  },[modalData.percent])
+
   return (
     <>
       <div

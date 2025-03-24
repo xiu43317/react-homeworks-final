@@ -23,7 +23,6 @@ function IntroPage() {
     swiper.slidePrev();
   };
   const [articles, setArticles] = useState([]);
-  const [products, setProducts] = useState([]);
   const [hotProducts, setHotProducts] = useState([]);
   const [dataReady, setDataReady] = useState(false);
   const getArticles = (page) => {
@@ -40,8 +39,7 @@ function IntroPage() {
     api
       .getProducts(page)
       .then((res) => {
-        setProducts([...res.data.products]);
-        setHotProducts([...products.filter((item) => item.stars > 4)]);
+        setHotProducts([...res.data.products.filter((item) => item.stars > 4)]);
         setDataReady(true);
       })
       .catch((err) => {
@@ -53,7 +51,7 @@ function IntroPage() {
   }, []);
   useEffect(() => {
     getProducts();
-  }, [hotProducts]);
+  }, []);
   return (
     <>
       {" "}
