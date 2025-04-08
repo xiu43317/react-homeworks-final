@@ -34,7 +34,7 @@ function OrderModal({ tempOrder, isOpen, setIsOpen, updatePaid }) {
   };
   useEffect(() => {
     new Modal(orderModalRef.current, {
-      backdrop: false,
+      backdrop: 'static',
     });
   }, []);
   useEffect(() => {

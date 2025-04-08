@@ -66,7 +66,7 @@ function ProductsPage() {
           <ReactLoading type="spin" color="black" width="4rem" height="4rem" />
         </div>
       )}
-      <div className="container">
+      <div className="container mt-5">
         <div className="row">
           <div className="col-md-3">
             <ul className="list-group text-center side-menu">

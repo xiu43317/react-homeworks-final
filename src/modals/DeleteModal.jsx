@@ -34,7 +34,7 @@ function DeleteModal({ getProducts, isOpen, setIsOpen, tempProduct }) {
   };
   useEffect(() => {
     new Modal(delProductModalRef.current, {
-      backdrop: false,
+      backdrop: 'static',
     });
   }, []);
   useEffect(() => {

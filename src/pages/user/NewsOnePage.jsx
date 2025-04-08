@@ -3,7 +3,7 @@ import api from "../../api/axios";
 import { useCallback, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import ReactLoading from "react-loading";
-import ArticlePages from "../../components/ArticlePages ";
+import ArticlePages from "../../components/ArticlePages";
 import { notify } from "../../api/toast";
 
 function NewsOnePage() {

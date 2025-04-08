@@ -63,7 +63,6 @@ function ArticleModal({
         })
         .catch((err) => {
           alert(err.response.data.message);
-          handleCloseProductModal();
           setIsScreenLoading(false);
         });
     } else {
@@ -79,7 +78,6 @@ function ArticleModal({
         })
         .catch((err) => {
           alert(err.response.data.message);
-          handleCloseProductModal();
           setIsScreenLoading(false);
         });
     }
@@ -90,6 +88,11 @@ function ArticleModal({
       ...modalData,
       [name]: type === "checkbox" ? checked : value,
     });
+    setUpdateData({
+      ...modalData,
+      [name]: type === "checkbox" ? checked : value,
+      create_at: Number(Math.floor(new Date(modalData.create_at) / 1000)),
+    })
     if(type==="date"){
       setUpdateData({
         ...modalData,
@@ -98,6 +101,7 @@ function ArticleModal({
     }
   };
   const handleAllData = () => {
+    console.log(updateData)
     updateArticle(updateData);
   };
   const pushTag = () => {
@@ -132,7 +136,7 @@ function ArticleModal({
   }, [editorState]);
   useEffect(() => {
     new Modal(productModalRef.current, {
-      backdrop: false,
+      backdrop: 'static',
     });
   }, []);
   useEffect(() => {
@@ -157,12 +161,17 @@ function ArticleModal({
     }
   }, [isOpen, tempArticle]);
   useEffect(() => {
+    console.log(tempArticle.create_at)
     setModalData({
       ...tempArticle,
       create_at: new Date(tempArticle.create_at * 1000)
         .toISOString()
         .split("T")[0],
     });
+    setUpdateData({
+      ...tempArticle,
+      create_at: Number(Math.floor(new Date(tempArticle.create_at) / 1000)),
+    })
   }, [tempArticle]);
   return (
     <>

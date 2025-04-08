@@ -257,7 +257,7 @@ function CheckPageLayout() {
                   },
                 })}
                 id="tel"
-                type="text"
+                type="tel"
                 className={`form-control ${errors.tel && "is-invalid"}`}
                 placeholder="請輸入電話"
               />
@@ -299,7 +299,7 @@ function CheckPageLayout() {
               ></textarea>
             </div>
             <div className="text-end">
-              <button type="submit" className="btn btn-success">
+              <button type="submit" className="btn btn-success" disabled={!cart.total}>
                 送出訂單
               </button>
             </div>

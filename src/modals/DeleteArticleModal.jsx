@@ -14,7 +14,6 @@ function DeleteArticleModal({ getArticles, isOpen, setIsOpen, tempArticle, setIs
     try {
       await deleteArticle(tempArticle.id);
       getArticles();
-      handleDelCloseProductModal();
     } catch (err) {
       notify(false,err.response.data.message)
     }
@@ -32,17 +31,17 @@ function DeleteArticleModal({ getArticles, isOpen, setIsOpen, tempArticle, setIs
         alert(res.data.message)
         handleDelCloseProductModal()
         setIsScreenLoading(false)
+        handleDelCloseProductModal();
         getArticles()
       })
       .catch((err) => {
         alert(err.response.data.message)
-        handleDelCloseProductModal()
         setIsScreenLoading(false)
       })
   }
   useEffect(() => {
     new Modal(delProductModalRef.current, {
-      backdrop: false,
+      backdrop: 'static',
     });
   }, []);
   useEffect(() => {
@@ -62,7 +61,7 @@ function DeleteArticleModal({ getArticles, isOpen, setIsOpen, tempArticle, setIs
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
-            <h1 className="modal-title fs-5">刪除產品</h1>
+            <h1 className="modal-title fs-5">刪除文章</h1>
             <button
               type="button"
               className="btn-close"

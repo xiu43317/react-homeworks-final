@@ -57,7 +57,7 @@ function ProductModal({
     formData.append("file-to-upload", file);
     try {
       const res = await axios.post(
-        `${BASE_URL}/v2/api/${API_PATH}/admin/upload`,
+        `${BASE_URL}/api/${API_PATH}/admin/upload`,
         formData
       );
       const uploadImageUrl = res.data.imageUrl;
@@ -74,7 +74,6 @@ function ProductModal({
     try {
       await apiCall();
       getProducts();
-      handleCloseProductModal();
     } catch (err) {
       notify(false,err.response.data.message)
     }
@@ -94,6 +93,7 @@ function ProductModal({
           is_enabled: modalData.is_enabled ? 1 : 0,
         },
       });
+      handleCloseProductModal();
     } catch (err) {
       notify(false,err.response.data.message)
     }
@@ -111,13 +111,14 @@ function ProductModal({
           },
         }
       );
+      handleCloseProductModal();
     } catch (err) {
       notify(false,err.response.data.message)
     }
   };
   useEffect(() => {
     new Modal(productModalRef.current, {
-      backdrop: false,
+      backdrop: 'static',
     });
   }, []);
   useEffect(() => {
@@ -368,7 +369,7 @@ function ProductModal({
                         return (
                           <a
                             href="#"
-                            key={index}
+                            key={item}
                             className="text-dark"
                             onClick={(e) => handleStarsChange(e, index + 1)}
                           >

@@ -66,7 +66,7 @@ function CouponModal({ modalMode, tempCoupon, isOpen, setIsOpen, getCoupons }) {
   };
   useEffect(() => {
     new Modal(couponModalRef.current, {
-      backdrop: false,
+      backdrop: 'static',
     });
   }, []);
   useEffect(() => {
@@ -171,6 +171,7 @@ function CouponModal({ modalMode, tempCoupon, isOpen, setIsOpen, getCoupons }) {
                     checked={modalData.is_enabled}
                     onChange={handleModalInputChange}
                     name="is_enabled"
+                    id="is_enabled"
                   />
                   <label
                     className="form-check-label"

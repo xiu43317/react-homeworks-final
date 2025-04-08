@@ -35,7 +35,7 @@ function DeleteCouponModal({ getCoupons, isOpen, setIsOpen, tempCoupon }) {
   };
   useEffect(() => {
     new Modal(delCouponModalRef.current, {
-      backdrop: false,
+      backdrop: 'static',
     });
   }, []);
   useEffect(() => {

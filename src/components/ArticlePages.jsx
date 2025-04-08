@@ -88,7 +88,7 @@ function ArticlePages({ num }) {
     <>
       <div className="container mt-5">
         <div className="row">
-          <div className="col-lg-8 mx-auto">
+          <div className="col-lg-12 mx-auto text-center">
             <div className="row fs-5">
               {prevPageId ? (
                 <strong className="col-md-6 mb-3 mb-md-0">
