@@ -103,7 +103,6 @@ function ArticleModal({
     }
   };
   const handleAllData = () => {
-    console.log(updateData)
     updateArticle(updateData);
   };
   const pushTag = () => {
