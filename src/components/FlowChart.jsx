@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 
 function FlowChart({ progress }) {
   return (
-    <>
       <div className="container mt-5 px-5">
         <div
           className="position-relative my-4 mx-auto"
@@ -51,7 +50,6 @@ function FlowChart({ progress }) {
           </p>
         </div>
       </div>
-    </>
   );
 }
 

@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { NavLink, Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import { notify } from "../../api/toast";
 
 const url = import.meta.env.VITE_BASE_URL;
 
@@ -21,7 +22,7 @@ function AdminDashboard() {
         setIsAuth(true);
       })
       .catch((error) => {
-        alert(error.response.data.message);
+        notify(false,error.response.data.message)
         navigate("/Login");
       });
   }, [navigate]);
@@ -30,12 +31,12 @@ function AdminDashboard() {
     axios
       .post(`${url}/logout`)
       .then((res) => {
-        alert(res.data.message);
+        notify(true,res.data.message)
         document.cookie = "hexToken=;expires=;";
         navigate("/login");
       })
       .catch((err) => {
-        alert(err.response.data.message);
+        notify(false,err.response.data.message)
       });
   };
   useEffect(() => {

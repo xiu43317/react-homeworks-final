@@ -28,14 +28,14 @@ function DeleteArticleModal({ getArticles, isOpen, setIsOpen, tempArticle, setIs
     axios
       .delete(`${BASE_URL}/api/${API_PATH}/admin/article/${id}`)
       .then((res) => {
-        alert(res.data.message)
+        notify(true,res.data.message)
         handleDelCloseProductModal()
         setIsScreenLoading(false)
         handleDelCloseProductModal();
         getArticles()
       })
       .catch((err) => {
-        alert(err.response.data.message)
+        notify(false,err.response.data.message)
         setIsScreenLoading(false)
       })
   }
@@ -66,7 +66,6 @@ function DeleteArticleModal({ getArticles, isOpen, setIsOpen, tempArticle, setIs
               type="button"
               className="btn-close"
               onClick={handleDelCloseProductModal}
-              aria-label="Close"
             ></button>
           </div>
           <div className="modal-body">

@@ -20,7 +20,7 @@ const defaultModalState = {
   content: "",
   is_enabled: 0,
   imagesUrl: [""],
-  stars:0
+  stars: 0,
 };
 
 function AdminProducts() {
@@ -41,7 +41,7 @@ function AdminProducts() {
       setPageInfo(res.data.pagination);
       setIsScreenLoading(false);
     } catch (err) {
-      notify(false,err.response.data.message)
+      notify(false, err.response.data.message);
       setIsScreenLoading(false);
     }
   };
@@ -86,10 +86,10 @@ function AdminProducts() {
         </div>
       )}
       <div className="container py-5">
+        <h2 className="text-center">產品列表</h2>
         <div className="row">
           <div className="col">
-            <div className="d-flex justify-content-between">
-              <h2>產品列表</h2>
+            <div className="d-flex justify-content-end">
               <button
                 type="button"
                 className="btn btn-primary"
@@ -114,9 +114,11 @@ function AdminProducts() {
                   <tr key={product.id}>
                     <th scope="row">{product.title}</th>
                     <td>
-                      {Array.from({ length: product.stars }).map((item,index) => (
-                        <i className="bi bi-star-fill" key={index}></i>
-                      ))}
+                      {Array.from({ length: product.stars }).map(
+                        (item, index) => (
+                          <i className="bi bi-star-fill" key={index}></i>
+                        )
+                      )}
                     </td>
                     <td>{product.origin_price}</td>
                     <td>{product.price}</td>

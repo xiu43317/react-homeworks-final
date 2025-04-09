@@ -28,9 +28,8 @@ function DeleteCouponModal({ getCoupons, isOpen, setIsOpen, tempCoupon }) {
       await axios.delete(
         `${BASE_URL}/api/${API_PATH}/admin/coupon/${tempCoupon.id}`
       );
-    } catch (error) {
-      console.log(error);
-      alert("刪除產品失敗");
+    } catch (err) {
+      notify(false,err.response.data.message)
     }
   };
   useEffect(() => {

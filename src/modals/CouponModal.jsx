@@ -2,6 +2,7 @@ import propTypes from "prop-types"
 import { useRef, useEffect, useState } from "react";
 import { Modal } from "bootstrap";
 import axios from "axios";
+import { notify } from "../api/toast";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
@@ -34,19 +35,19 @@ function CouponModal({ modalMode, tempCoupon, isOpen, setIsOpen, getCoupons }) {
     }
   };
   const updateCoupon = (mode) => {
-    if (modalData.percent < 1) alert("折扣百分比不得小於1");
-    else if (modalData.percent > 100) alert("折扣百分比不得大於100");
+    if (modalData.percent < 1) notify(false,"折扣百分比不得小於1");
+    else if (modalData.percent > 100) notify(false,"折扣百分比不得大於100")
     else {
       if (mode === "create") {
         axios
           .post(`${BASE_URL}/api/${API_PATH}/admin/coupon`, { data: modalData })
           .then((res) => {
-            alert(res.data.message);
+            notify(true,res.data.message)
             handleCloseOrderModal();
             getCoupons();
           })
           .catch((err) => {
-            alert(err.message);
+            notify(false,err.response.data.message)
           });
       } else {
         axios
@@ -54,12 +55,12 @@ function CouponModal({ modalMode, tempCoupon, isOpen, setIsOpen, getCoupons }) {
             data: modalData,
           })
           .then((res) => {
-            alert(res.data.message);
+            notify(true,res.data.message)
             handleCloseOrderModal();
             getCoupons();
           })
           .catch((err) => {
-            alert(err.response.data.message);
+            notify(false,err.response.data.message)
           });
       }
     }
@@ -86,14 +87,12 @@ function CouponModal({ modalMode, tempCoupon, isOpen, setIsOpen, getCoupons }) {
   }, [tempCoupon]);
 
   return (
-    <>
       <div
         id="couponModal"
         ref={couponModalRef}
         className="modal fade"
         tabIndex="1"
         aria-labelledby="couponModalLabel"
-        aria-hidden="true"
       >
         <div className="modal-dialog" role="document">
           <div className="modal-content">
@@ -203,7 +202,6 @@ function CouponModal({ modalMode, tempCoupon, isOpen, setIsOpen, getCoupons }) {
           </div>
         </div>
       </div>
-    </>
   );
 }
 

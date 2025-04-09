@@ -15,6 +15,7 @@ function ProductModal({
   getProducts,
 }) {
   const productModalRef = useRef(null);
+  const fileInput = useRef(null)
   const [modalData, setModalData] = useState(tempProduct);
   const handleStarsChange = (e, num) => {
     e.preventDefault();
@@ -81,6 +82,7 @@ function ProductModal({
   const handleCloseProductModal = () => {
     const modalInstance = Modal.getInstance(productModalRef.current);
     modalInstance.hide();
+    fileInput.current.value = ""
     setIsOpen(false);
   };
   const createProduct = async () => {
@@ -142,8 +144,8 @@ function ProductModal({
     >
       <div className="modal-dialog modal-dialog-centered modal-xl">
         <div className="modal-content border-0 shadow">
-          <div className="modal-header border-bottom">
-            <h5 className="modal-title fs-4">
+          <div className="modal-header border-bottom bg-secondary text-white">
+            <h5 className="modal-title fs-4" >
               {modalMode === "create" ? "新增產品" : "編輯產品"}
             </h5>
             <button
@@ -167,6 +169,7 @@ function ProductModal({
                     accept=".jpg,.jpeg,.png"
                     className="form-control"
                     id="fileInput"
+                    ref={fileInput}
                     onChange={handleFileChange}
                   />
                 </div>
@@ -369,7 +372,7 @@ function ProductModal({
                         return (
                           <a
                             href="#"
-                            key={item}
+                            key={index}
                             className="text-dark"
                             onClick={(e) => handleStarsChange(e, index + 1)}
                           >
@@ -379,7 +382,7 @@ function ProductModal({
                       else
                         return (
                           <a
-                            key={item}
+                            key={index}
                             href="#"
                             className="text-dark"
                             onClick={(e) => handleStarsChange(e, index + 1)}

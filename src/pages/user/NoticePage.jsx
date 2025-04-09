@@ -2,7 +2,6 @@ import "../../assets/css/noticepage.css"
 
 function NoticePage() {
   return (
-    <>
       <div className="container mh-380">
         <h3 className="fs-2 mx-auto my-5 text-center">購買須知</h3>
         <div className="accordion mw-800 mx-auto fs-5" id="accordionExample">
@@ -170,7 +169,6 @@ function NoticePage() {
           </div>
         </div>
       </div>
-    </>
   );
 }
 

@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 function FinishPayment({ orderId }) {
     const navigate = useNavigate()
   return (
-    <>
       <div className="container">
         <div className="d-flex justify-content-evenly flex-column align-items-center mh-400 py-3">
           <div>
@@ -41,7 +40,6 @@ function FinishPayment({ orderId }) {
           </div>
         </div>
       </div>
-    </>
   );
 }
 

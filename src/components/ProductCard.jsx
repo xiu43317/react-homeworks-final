@@ -69,7 +69,6 @@ function ProductCard({ product }) {
   }
 
   return (
-    <>
       <div className="card h-100">
         <div
           className="position-relative bg-img"
@@ -114,7 +113,6 @@ function ProductCard({ product }) {
           </button>
         </div>
       </div>
-    </>
   );
 }
 

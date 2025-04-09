@@ -4,6 +4,7 @@ import axios from "axios";
 import ButtomPagination from "../../components/ButtomPagination";
 import CouponModal from "../../modals/CouponModal";
 import DeleteCouponModal from "../../modals/DeleteCouponModal";
+import { notify } from "../../api/toast";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
@@ -26,7 +27,7 @@ function AdminCoupon() {
   const [isScreenLoading, setIsScreenLoading] = useState(false);
   const [isCouponModalOpen, setIsCouponModalOpen] = useState(false);
   const [isDelCouponModalOpen, setDelIsCouponModalOpen] = useState(false);
-  
+
   const getCoupons = (page = 1) => {
     setIsScreenLoading(true);
     axios
@@ -47,7 +48,7 @@ function AdminCoupon() {
         setIsScreenLoading(false);
       })
       .catch((err) => {
-        alert(err.message);
+        notify(false,err.message)
         setIsScreenLoading(false);
       });
   };
@@ -125,22 +126,24 @@ function AdminCoupon() {
                     <span>未啟用</span>
                   )}
                 </td>
-                <div className="btn-group">
-                  <button
-                    type="button"
-                    className="btn btn-outline-primary btn-sm"
-                    onClick={() => handleOpenProductModal("edit", item)}
-                  >
-                    編輯
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-outline-danger btn-sm"
-                    onClick={()=>handleDelOpenProductModal(item)}
-                  >
-                    刪除
-                  </button>
-                </div>
+                <td>
+                  <div className="btn-group">
+                    <button
+                      type="button"
+                      className="btn btn-outline-primary btn-sm"
+                      onClick={() => handleOpenProductModal("edit", item)}
+                    >
+                      編輯
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-outline-danger btn-sm"
+                      onClick={() => handleDelOpenProductModal(item)}
+                    >
+                      刪除
+                    </button>
+                  </div>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -158,10 +161,10 @@ function AdminCoupon() {
         getCoupons={getCoupons}
       />
       <DeleteCouponModal
-      getCoupons={getCoupons}
-      isOpen={isDelCouponModalOpen}
-      setIsOpen={setDelIsCouponModalOpen}
-      tempCoupon={tempCoupon}
+        getCoupons={getCoupons}
+        isOpen={isDelCouponModalOpen}
+        setIsOpen={setDelIsCouponModalOpen}
+        tempCoupon={tempCoupon}
       />
     </>
   );

@@ -85,7 +85,6 @@ function ArticlePages({ num }) {
     getPages();
   }, [getPages]);
   return (
-    <>
       <div className="container mt-5">
         <div className="row">
           <div className="col-lg-12 mx-auto text-center">
@@ -120,7 +119,6 @@ function ArticlePages({ num }) {
           </div>
         </div>
       </div>
-    </>
   );
 }
 

@@ -52,14 +52,12 @@ function OrderModal({ tempOrder, isOpen, setIsOpen, updatePaid }) {
     });
   }, [tempOrder]);
   return (
-    <>
       <div
         className="modal fade"
         id="productModal"
         tabIndex="-1"
         role="dialog"
         aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
         ref={orderModalRef}
       >
         <div className="modal-dialog modal-xl" role="document">
@@ -165,12 +163,12 @@ function OrderModal({ tempOrder, isOpen, setIsOpen, updatePaid }) {
                   <div className="d-flex justify-content-end">
                     <div className="form-check">
                       <input
-                        className="form-check-input"
-                        type="checkbox"
                         checked={modalData.is_paid}
-                        id="flexCheckDefault"
-                        name="is_paid"
                         onChange={handleModalInputChange}
+                        name="is_paid"
+                        type="checkbox"
+                        className="form-check-input"
+                        id="flexCheckDefault"
                       />
                       <label
                         className="form-check-label"
@@ -202,7 +200,6 @@ function OrderModal({ tempOrder, isOpen, setIsOpen, updatePaid }) {
           </div>
         </div>
       </div>
-    </>
   );
 }
 

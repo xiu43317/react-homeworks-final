@@ -11,7 +11,6 @@ function NewCard({ oneNews }) {
         AOS.init()
     },[])
   return (
-    <>
       <div className="col-12 col-lg-4 col-md-6 my-3" data-aos="fade-up" data-aos-duration="1000" data-aos-once="false">
         <NavLink to={path}>
           <div className="card position-relative h-100 zoom-in">
@@ -29,7 +28,6 @@ function NewCard({ oneNews }) {
           </div>
         </NavLink>
       </div>
-    </>
   );
 }
 

@@ -42,7 +42,6 @@ function ButtomBanner() {
       }
     }
     return (
-    <>
       <div className="fixed-banner-wrap mt-5">
         <div className="container-fluid">
           <div className="row">
@@ -67,7 +66,6 @@ function ButtomBanner() {
           </div>
         </div>
       </div>
-    </>
   );
 }
 

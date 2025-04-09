@@ -23,12 +23,14 @@ function ArticleModal({
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   //   const htmlToPlainText = (html) => html.replace(/<[^>]*>/g, "");
   const productModalRef = useRef(null);
+  const fileInput = useRef(null)
   const [content, setContent] = useState("");
   const [modalData, setModalData] = useState(tempArticle);
   const [updateData,setUpdateData] = useState(tempArticle)
   const handleCloseProductModal = () => {
     const modalInstance = Modal.getInstance(productModalRef.current);
     modalInstance.hide();
+    fileInput.current.value = ""
     setContent("");
     setIsOpen(false);
   };
@@ -146,6 +148,12 @@ function ArticleModal({
         content,
       })
     );
+    setUpdateData((updateData)=>
+      setUpdateData({
+        ...updateData,
+        content
+      })
+    )
   }, [content]);
   useEffect(() => {
     if (isOpen) {
@@ -161,7 +169,6 @@ function ArticleModal({
     }
   }, [isOpen, tempArticle]);
   useEffect(() => {
-    console.log(tempArticle.create_at)
     setModalData({
       ...tempArticle,
       create_at: new Date(tempArticle.create_at * 1000)
@@ -170,7 +177,6 @@ function ArticleModal({
     });
     setUpdateData({
       ...tempArticle,
-      create_at: Number(Math.floor(new Date(tempArticle.create_at) / 1000)),
     })
   }, [tempArticle]);
   return (
@@ -181,8 +187,6 @@ function ArticleModal({
           id="productModal"
           tabIndex="-1"
           role="dialog"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
           ref={productModalRef}
         >
           <div className="modal-dialog modal-xl" role="document">
@@ -196,7 +200,6 @@ function ArticleModal({
                   type="button"
                   className="btn-close"
                   data-bs-dismiss="modal"
-                  aria-label="Close"
                   onClick={handleCloseProductModal}
                 ></button>
               </div>
@@ -220,7 +223,7 @@ function ArticleModal({
                     <div className="mb-3">
                       <img
                         src={modalData.imageUrl}
-                        // alt={modalData.title}
+                        alt={modalData.title}
                         className="img-fluid object-fit-cover"
                       />
                       <label htmlFor="image" className="form-label">
@@ -242,7 +245,8 @@ function ArticleModal({
                         <input
                           className="form-control"
                           type="file"
-                          id="fileInput"
+                          id="formFile"
+                          ref={fileInput}
                           onChange={handleFileChange}
                           accept=".jpg,.jpeg,.png"
                         />

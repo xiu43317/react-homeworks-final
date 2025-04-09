@@ -1,6 +1,5 @@
 function NotFound() {
   return (
-    <>
       <div className="container">
         <div className="row vh-100 align-items-center">
           <div className="text-center">
@@ -19,7 +18,6 @@ function NotFound() {
           </div>
         </div>
       </div>
-    </>
   );
 }
 
