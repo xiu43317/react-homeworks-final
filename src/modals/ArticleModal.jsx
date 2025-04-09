@@ -58,13 +58,13 @@ function ArticleModal({
       axios
         .post(`${BASE_URL}/api/${API_PATH}/admin/article`, { data: item })
         .then((res) => {
-          alert(res.data.message);
+          notify(true,res.data.message)
           handleCloseProductModal();
           setIsScreenLoading(false);
           getArticles();
         })
         .catch((err) => {
-          alert(err.response.data.message);
+          notify(false,err.response.data.message)
           setIsScreenLoading(false);
         });
     } else {
@@ -73,13 +73,13 @@ function ArticleModal({
           data: item,
         })
         .then((res) => {
-          alert(res.data.message);
+          notify(true,res.data.message)
           handleCloseProductModal();
           setIsScreenLoading(false);
           getArticles();
         })
         .catch((err) => {
-          alert(err.response.data.message);
+          notify(false,err.response.data.message)
           setIsScreenLoading(false);
         });
     }
