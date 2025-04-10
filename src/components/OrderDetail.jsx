@@ -37,14 +37,12 @@ function OrderDetail({ order, payOrder }) {
                 >
                   <div className="accordion-body">
                     {Object.values(userOrder.products).map((item) =>
-                    <>
                       <CardItem
                         key={item.id}
                         removable={{isRemovable:false}}
                         cart={item}
-                      />
-                    </>
-                    )}
+                      />)
+                    }
                   </div>
                 </div>
               </div>
