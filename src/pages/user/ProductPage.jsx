@@ -6,16 +6,15 @@ import { notify } from "../../api/toast";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import ProductCard from "../../components/ProductCard";
-import { useDispatch,useSelector } from "react-redux";
-import { setCart,setIsCartLoading } from "../../redux/cartSlice";
-
+import { useDispatch, useSelector } from "react-redux";
+import { setCart, setIsCartLoading } from "../../redux/cartSlice";
 
 function ProductPage() {
   const params = useParams();
   const [isScreenLoading, setIsScreenLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const isCartLoading = useSelector((state)=>state.cart.isCartLoading)
-  const cart = useSelector((state)=>state.cart.carts)
+  const isCartLoading = useSelector((state) => state.cart.isCartLoading);
+  const cart = useSelector((state) => state.cart.carts);
   const dispatch = useDispatch();
   const [products, setProducts] = useState([]);
   const [tempProduct, setTempProduct] = useState({});
@@ -32,7 +31,7 @@ function ProductPage() {
         notify(false, err.response.data.message);
         setIsScreenLoading(false);
       });
-  },[params.id]) 
+  }, [params.id]);
   const getProducts = useCallback(() => {
     api
       .getProducts(1, tempProduct.category)
@@ -45,7 +44,7 @@ function ProductPage() {
         notify(err.response.data.message);
         setIsScreenLoading(false);
       });
-  },[tempProduct]) 
+  }, [tempProduct]);
 
   const getCart = () => {
     api
@@ -57,45 +56,49 @@ function ProductPage() {
         notify(false, err.response.data.message);
       });
     notify(true, "已更新購物車");
-    setIsLoading(false)
-    dispatch(setIsCartLoading({isLoading:false}))
+    setIsLoading(false);
+    dispatch(setIsCartLoading({ isLoading: false }));
   };
   const addToCart = async () => {
-    const title = tempProduct.title
-    setIsLoading(true)
-    dispatch(setIsCartLoading({isLoading:true}))
-    const index = cart.carts.findIndex(item => item.product_id === tempProduct.id)
+    const title = tempProduct.title;
+    setIsLoading(true);
+    dispatch(setIsCartLoading({ isLoading: true }));
+    const index = cart.carts.findIndex(
+      (item) => item.product_id === tempProduct.id
+    );
     const item = {
       data: {
         product_id: tempProduct.id,
-        qty: Number(qtySelect)
-      }
-    }
+        qty: Number(qtySelect),
+      },
+    };
     // 有在購物車裡面
     if (index !== -1) {
-      const newQty = cart.carts[index].qty + Number(qtySelect)
-      const cartId = cart.carts[index].id
-      item.data.qty = newQty
-      await api.updateCart(cartId, item)
+      const newQty = cart.carts[index].qty + Number(qtySelect);
+      const cartId = cart.carts[index].id;
+      item.data.qty = newQty;
+      await api
+        .updateCart(cartId, item)
         .then((res) => {
-          notify(true, `${title}${res.data.message}`)
+          notify(true, `${title}${res.data.message}`);
         })
         .catch((err) => {
-          notify(false, err.response.data.message)
-        })
-      getCart()
+          notify(false, err.response.data.message);
+        });
+      getCart();
     } else {
       // 沒有在購物車裡面
-      await api.createCart(item)
+      await api
+        .createCart(item)
         .then((res) => {
-          notify(true, `${title}${res.data.message}`)
+          notify(true, `${title}${res.data.message}`);
         })
         .catch((err) => {
-          notify(false, err.response.data.message)
-        })
-      getCart()
+          notify(false, err.response.data.message);
+        });
+      getCart();
     }
-  }
+  };
   useEffect(() => {
     getProduct();
   }, [getProduct]);
@@ -149,7 +152,8 @@ function ProductPage() {
                   src={tempProduct.imageUrl}
                   alt={tempProduct.title}
                   style={{ maxHeight: "400px" }}
-                  data-aos="zoom-in" data-aos-duration="2000"
+                  data-aos="zoom-in"
+                  data-aos-duration="2000"
                 />
               </div>
               <div className="col-md-6 d-flex flex-column">
@@ -215,7 +219,12 @@ function ProductPage() {
         </div>
         <hr />
         <p className="fs-2 fw-bold text-center my-5">相關商品</p>
-        <div className="swiper-container position-relative" data-aos="fade-up" data-aos-duration="1000" data-aos-once="false">
+        <div
+          className="swiper-container position-relative"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          data-aos-once="false"
+        >
           {dataReady ? (
             <Swiper
               modules={[Autoplay, Navigation, Pagination]}
@@ -236,7 +245,7 @@ function ProductPage() {
               }}
             >
               {products.map((product) => (
-                <SwiperSlide key={product.id} >
+                <SwiperSlide key={product.id}>
                   <ProductCard product={product} />
                 </SwiperSlide>
               ))}

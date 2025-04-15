@@ -11,7 +11,6 @@ import ProductCard from "../../components/ProductCard";
 import { notify } from "../../api/toast";
 import ReactLoading from "react-loading";
 
-
 function IntroPage() {
   const [swiper, setSwiper] = useState(null);
   const nexto = (e) => {

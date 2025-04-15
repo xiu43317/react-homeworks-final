@@ -13,10 +13,9 @@ import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-
 function CheckPageLayout() {
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [isScreenLoading, setIsScreenLoading] = useState(false);
   const cart = useSelector((state) => state.cart.carts);
   const [couponCode, setCouponCode] = useState("");
@@ -29,32 +28,34 @@ function CheckPageLayout() {
   } = useForm();
 
   const useMyCoupon = async () => {
-    setIsScreenLoading(true)
+    setIsScreenLoading(true);
     const coupon = {
       data: {
-        code: couponCode
-      }
-    }
-    await api.useCoupon(coupon)
+        code: couponCode,
+      },
+    };
+    await api
+      .useCoupon(coupon)
       .then((res) => {
-        setIsScreenLoading(false)
-        withReactContent(Swal).fire({
-          icon: 'success',
-          confirmButtonColor: 'green',
-          title: res.data.message
-        })
+        setIsScreenLoading(false);
+        withReactContent(Swal)
+          .fire({
+            icon: "success",
+            confirmButtonColor: "green",
+            title: res.data.message,
+          })
           .then(async (result) => {
             if (result.isConfirmed) {
-              setIsScreenLoading(true)
-              getCart()
+              setIsScreenLoading(true);
+              getCart();
             }
-          })
+          });
       })
       .catch((err) => {
-        notify(false, err.response.data.message)
-        setIsScreenLoading(false)
-      })
-  }
+        notify(false, err.response.data.message);
+        setIsScreenLoading(false);
+      });
+  };
 
   const onSubmit = handleSubmit((data) => {
     const { message, ...user } = data;
@@ -72,8 +73,8 @@ function CheckPageLayout() {
       setIsScreenLoading(true);
       const res = await api.sendOrder(data);
       reset();
-      dispatch(setCart({cart:{}}))
-      navigate(`/payment?id=${res.data.orderId}`)
+      dispatch(setCart({ cart: {} }));
+      navigate(`/payment?id=${res.data.orderId}`);
     } catch (err) {
       notify(false, err.response.data.message);
     } finally {
@@ -91,8 +92,8 @@ function CheckPageLayout() {
         notify(false, err.response.data.message);
       });
     notify(true, "已更新購物車");
-    setAddBtnState(false)
-    setIsScreenLoading(false)
+    setAddBtnState(false);
+    setIsScreenLoading(false);
   };
 
   const deleteAllItems = () => {
@@ -110,8 +111,8 @@ function CheckPageLayout() {
       })
       .then(async (result) => {
         if (result.isConfirmed) {
-          setAddBtnState(true)
-          setIsScreenLoading(true)
+          setAddBtnState(true);
+          setIsScreenLoading(true);
           await api
             .deleteCartAll()
             .then((res) => {
@@ -146,7 +147,9 @@ function CheckPageLayout() {
             {!cart.total && (
               <div className="text-center my-5">
                 <p className="fs-4 fw-bold">你的購物車現在沒東西喔!</p>
-                <NavLink to={"/products"} className="btn btn-lg btn-success">選購商品</NavLink>
+                <NavLink to={"/products"} className="btn btn-lg btn-success">
+                  選購商品
+                </NavLink>
               </div>
             )}
             {cart.carts?.map((item) => (
@@ -299,7 +302,11 @@ function CheckPageLayout() {
               ></textarea>
             </div>
             <div className="text-end">
-              <button type="submit" className="btn btn-success" disabled={!cart.total}>
+              <button
+                type="submit"
+                className="btn btn-success"
+                disabled={!cart.total}
+              >
                 送出訂單
               </button>
             </div>

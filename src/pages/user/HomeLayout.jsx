@@ -66,58 +66,62 @@ function Homelayout() {
       });
   };
   const deleteItem = async (cart) => {
-    withReactContent(Swal).fire({
-      icon: 'warning', // error\warning\info\question
-      title: `確定刪除${cart.product.title}`,
-      text: '刪除後的資料無法恢復',
-      showCancelButton: true,
-      cancelButtonColor: 'gray',
-      confirmButtonColor: 'red',
-      cancelButtonText: '取消',
-      confirmButtonText: '確定',
-      reverseButtons: true
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        setIsLoading(true)
-        setIsBtnDisabled(true)
-        await api.deleteCart(cart.id)
-          .then((res) => {
-            withReactContent(Swal).fire({
-              title: '刪除成功',
-              confirmButtonColor: 'green',
-              text: `${cart.product.title}${res.data.message}`,
-              icon: 'success'
+    withReactContent(Swal)
+      .fire({
+        icon: "warning", // error\warning\info\question
+        title: `確定刪除${cart.product.title}`,
+        text: "刪除後的資料無法恢復",
+        showCancelButton: true,
+        cancelButtonColor: "gray",
+        confirmButtonColor: "red",
+        cancelButtonText: "取消",
+        confirmButtonText: "確定",
+        reverseButtons: true,
+      })
+      .then(async (result) => {
+        if (result.isConfirmed) {
+          setIsLoading(true);
+          setIsBtnDisabled(true);
+          await api
+            .deleteCart(cart.id)
+            .then((res) => {
+              withReactContent(Swal).fire({
+                title: "刪除成功",
+                confirmButtonColor: "green",
+                text: `${cart.product.title}${res.data.message}`,
+                icon: "success",
+              });
             })
-          })
-          .catch((err) => {
-            withReactContent(Swal).fire({
-              title: '刪除失敗',
-              text: `${err.response.data.message}`,
-              icon: 'error'
-            })
-          })
-        getCart()
-      } else if (result.isDenied) {
-        notify(false, '動作取消')
-      }
-    })
-  }
+            .catch((err) => {
+              withReactContent(Swal).fire({
+                title: "刪除失敗",
+                text: `${err.response.data.message}`,
+                icon: "error",
+              });
+            });
+          getCart();
+        } else if (result.isDenied) {
+          notify(false, "動作取消");
+        }
+      });
+  };
   const updateItem = (cart, renewData, add) => {
-    setIsBtnDisabled(true)
-    setClearButtonDisable(true)
-    api.updateCart(cart.id, renewData)
+    setIsBtnDisabled(true);
+    setClearButtonDisable(true);
+    api
+      .updateCart(cart.id, renewData)
       .then(() => {
-        if (add === true) notify(true, `${cart.product.title}已加入`)
-        else notify(true, `${cart.product.title}已移除`)
-        setIsBtnDisabled(false)
-        getCart()
+        if (add === true) notify(true, `${cart.product.title}已加入`);
+        else notify(true, `${cart.product.title}已移除`);
+        setIsBtnDisabled(false);
+        getCart();
       })
       .catch((err) => {
-        notify(false, err.response.data.message)
-        setIsBtnDisabled(false)
-        setClearButtonDisable(false)
-      })
-  }
+        notify(false, err.response.data.message);
+        setIsBtnDisabled(false);
+        setClearButtonDisable(false);
+      });
+  };
   const getCart = useCallback(() => {
     api
       .getCart()
@@ -131,10 +135,10 @@ function Homelayout() {
     setIsLoading(false);
     setIsBtnDisabled(false);
     setClearButtonDisable(false);
-  },[dispatch]) 
-  const goToShop = ()=>{
-    navigate('/products')
-  }
+  }, [dispatch]);
+  const goToShop = () => {
+    navigate("/products");
+  };
   useEffect(() => {
     getCart();
     AOS.init();
@@ -253,7 +257,7 @@ function Homelayout() {
         <div className="offcanvas-body">
           <div className="mb-2 d-flex justify-content-end">
             <button
-              disabled={ clearButtonDisable || !cart.total }
+              disabled={clearButtonDisable || !cart.total}
               type="button"
               className="btn btn-outline-success d-flex justify-content-center gap-2"
               onClick={deleteAllItems}
@@ -288,7 +292,7 @@ function Homelayout() {
               <CardItem
                 key={item.id}
                 cart={item}
-                removable={{isRemovable:true}}
+                removable={{ isRemovable: true }}
                 isBtnDisabled={isBtnDisabled}
                 deleteItem={deleteItem}
                 updateItem={updateItem}

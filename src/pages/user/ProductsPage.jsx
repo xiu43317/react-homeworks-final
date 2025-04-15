@@ -13,9 +13,7 @@ function ProductsPage() {
   const [products, setProducts] = useState([]);
   const [pageInfo, setPageInfo] = useState({});
   const [isScreenLoading, setIsScreenLoading] = useState(false);
-  const [category, setCategory] = useState(
-    parsed ? parsed.category : "全部"
-  );
+  const [category, setCategory] = useState(parsed ? parsed.category : "全部");
 
   const handlePageChange = (event, page, category) => {
     event.preventDefault();
@@ -47,10 +45,10 @@ function ProductsPage() {
     if (category === "全部") getProducts(1);
     else getProducts(1, category);
   }, [category]);
-  useEffect(()=>{
-    if(!location?.search) setCategory("全部")
-    else setCategory(queryString.parse(location?.search).category)
-  },[location?.search])
+  useEffect(() => {
+    if (!location?.search) setCategory("全部");
+    else setCategory(queryString.parse(location?.search).category);
+  }, [location?.search]);
   return (
     <>
       {isScreenLoading && (

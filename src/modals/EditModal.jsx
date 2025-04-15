@@ -1,4 +1,4 @@
-import propTypes from "prop-types"
+import propTypes from "prop-types";
 import { useEffect, useState, useRef } from "react";
 import { Modal } from "bootstrap";
 import axios from "axios";
@@ -15,7 +15,7 @@ function ProductModal({
   getProducts,
 }) {
   const productModalRef = useRef(null);
-  const fileInput = useRef(null)
+  const fileInput = useRef(null);
   const [modalData, setModalData] = useState(tempProduct);
   const handleStarsChange = (e, num) => {
     e.preventDefault();
@@ -67,7 +67,7 @@ function ProductModal({
         imageUrl: uploadImageUrl,
       });
     } catch (err) {
-      notify(false,err.response.data.message)
+      notify(false, err.response.data.message);
     }
   };
   const handleUpdateProduct = async () => {
@@ -76,13 +76,13 @@ function ProductModal({
       await apiCall();
       getProducts();
     } catch (err) {
-      notify(false,err.response.data.message)
+      notify(false, err.response.data.message);
     }
   };
   const handleCloseProductModal = () => {
     const modalInstance = Modal.getInstance(productModalRef.current);
     modalInstance.hide();
-    fileInput.current.value = ""
+    fileInput.current.value = "";
     setIsOpen(false);
   };
   const createProduct = async () => {
@@ -97,7 +97,7 @@ function ProductModal({
       });
       handleCloseProductModal();
     } catch (err) {
-      notify(false,err.response.data.message)
+      notify(false, err.response.data.message);
     }
   };
   const updateProduct = async () => {
@@ -115,19 +115,19 @@ function ProductModal({
       );
       handleCloseProductModal();
     } catch (err) {
-      notify(false,err.response.data.message)
+      notify(false, err.response.data.message);
     }
   };
   useEffect(() => {
     new Modal(productModalRef.current, {
-      backdrop: 'static',
+      backdrop: "static",
     });
   }, []);
   useEffect(() => {
     if (isOpen) {
       const modalInstance = Modal.getInstance(productModalRef.current);
       modalInstance.show();
-      setModalData(tempProduct)
+      setModalData(tempProduct);
     }
   }, [isOpen, tempProduct]);
   useEffect(() => {
@@ -145,7 +145,7 @@ function ProductModal({
       <div className="modal-dialog modal-dialog-centered modal-xl">
         <div className="modal-content border-0 shadow">
           <div className="modal-header border-bottom bg-secondary text-white">
-            <h5 className="modal-title fs-4" >
+            <h5 className="modal-title fs-4">
               {modalMode === "create" ? "新增產品" : "編輯產品"}
             </h5>
             <button
@@ -424,7 +424,7 @@ ProductModal.propTypes = {
   isOpen: propTypes.bool,
   setIsOpen: propTypes.func,
   tempProduct: propTypes.object,
-  getProducts: propTypes.func
-}
+  getProducts: propTypes.func,
+};
 
 export default ProductModal;

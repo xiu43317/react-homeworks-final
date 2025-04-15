@@ -26,10 +26,10 @@ function NewsOnePage() {
         setIsScreenLoading(false);
       })
       .catch((err) => {
-        notify(err.response.data.message)
+        notify(err.response.data.message);
         setIsScreenLoading(false);
       });
-  },[param]) 
+  }, [param]);
   useEffect(() => {
     getArticle();
   }, [getArticle]);
@@ -93,7 +93,7 @@ function NewsOnePage() {
             ></div>
           </article>
         </div>
-        <ArticlePages num={num}/>
+        <ArticlePages num={num} />
       </div>
     </>
   );

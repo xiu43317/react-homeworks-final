@@ -1,4 +1,4 @@
-import propTypes from "prop-types"
+import propTypes from "prop-types";
 import { useEffect, useState } from "react";
 import CardItem from "./CardItem";
 import { delFloat } from "../api/math";
@@ -36,13 +36,13 @@ function OrderDetail({ order, payOrder }) {
                   data-bs-parent="#accordionExample"
                 >
                   <div className="accordion-body">
-                    {Object.values(userOrder.products).map((item) =>
+                    {Object.values(userOrder.products).map((item) => (
                       <CardItem
                         key={item.id}
-                        removable={{isRemovable:false}}
+                        removable={{ isRemovable: false }}
                         cart={item}
-                      />)
-                    }
+                      />
+                    ))}
                   </div>
                 </div>
               </div>
@@ -91,7 +91,11 @@ function OrderDetail({ order, payOrder }) {
             </tbody>
           </table>
           {!userOrder.is_paid && (
-            <button type="button" className="btn btn-lg btn-secondary w-100" onClick={payOrder}>
+            <button
+              type="button"
+              className="btn btn-lg btn-secondary w-100"
+              onClick={payOrder}
+            >
               確認付款
             </button>
           )}
@@ -101,9 +105,9 @@ function OrderDetail({ order, payOrder }) {
   );
 }
 
-OrderDetail.propTypes={
+OrderDetail.propTypes = {
   order: propTypes.object,
-  payOrder: propTypes.func
-}
+  payOrder: propTypes.func,
+};
 
 export default OrderDetail;

@@ -1,19 +1,19 @@
-import propTypes from "prop-types"
+import propTypes from "prop-types";
 import { useState } from "react";
 import { delFloat } from "../api/math";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { notify } from "../api/toast";
-import { setCart,setIsCartLoading } from "../redux/cartSlice";
-import { useDispatch,useSelector } from "react-redux";
+import { setCart, setIsCartLoading } from "../redux/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
 import api from "../api/axios";
 
 function ProductOrderCard({ cart }) {
-  const isCartLoading = useSelector((state)=>state.cart.isCartLoading)
+  const isCartLoading = useSelector((state) => state.cart.isCartLoading);
   const [qty, setQty] = useState(cart?.qty);
   const dispatch = useDispatch();
-  let add = false
+  let add = false;
 
   const getCart = () => {
     api
@@ -24,85 +24,89 @@ function ProductOrderCard({ cart }) {
       .catch((err) => {
         notify(false, err.response.data.message);
       });
-    dispatch(setIsCartLoading({isLoading:false}))
+    dispatch(setIsCartLoading({ isLoading: false }));
     notify(true, "已更新購物車");
   };
   const deleteItem = async () => {
-    withReactContent(Swal).fire({
-      icon: 'warning', // error\warning\info\question
-      title: `確定刪除${cart.product.title}`,
-      text: '刪除後的資料無法恢復',
-      showCancelButton: true,
-      cancelButtonColor: 'gray',
-      confirmButtonColor: 'red',
-      cancelButtonText: '取消',
-      confirmButtonText: '確定',
-      reverseButtons: true
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        dispatch(setIsCartLoading({isLoading:true}))
-        await api.deleteCart(cart.id)
-          .then((res) => {
-            withReactContent(Swal).fire({
-              title: '刪除成功',
-              confirmButtonColor: 'green',
-              text: `${cart.product.title}${res.data.message}`,
-              icon: 'success'
+    withReactContent(Swal)
+      .fire({
+        icon: "warning", // error\warning\info\question
+        title: `確定刪除${cart.product.title}`,
+        text: "刪除後的資料無法恢復",
+        showCancelButton: true,
+        cancelButtonColor: "gray",
+        confirmButtonColor: "red",
+        cancelButtonText: "取消",
+        confirmButtonText: "確定",
+        reverseButtons: true,
+      })
+      .then(async (result) => {
+        if (result.isConfirmed) {
+          dispatch(setIsCartLoading({ isLoading: true }));
+          await api
+            .deleteCart(cart.id)
+            .then((res) => {
+              withReactContent(Swal).fire({
+                title: "刪除成功",
+                confirmButtonColor: "green",
+                text: `${cart.product.title}${res.data.message}`,
+                icon: "success",
+              });
             })
-          })
-          .catch((err) => {
-            withReactContent(Swal).fire({
-              title: '刪除失敗',
-              text: `${err.response.data.message}`,
-              icon: 'error'
-            })
-          })
-        getCart()
-      } else if (result.isDenied) {
-        notify(false, '動作取消')
-      }
-    })
-  }
+            .catch((err) => {
+              withReactContent(Swal).fire({
+                title: "刪除失敗",
+                text: `${err.response.data.message}`,
+                icon: "error",
+              });
+            });
+          getCart();
+        } else if (result.isDenied) {
+          notify(false, "動作取消");
+        }
+      });
+  };
   const updateCart = (qty) => {
-    if (qty< 1) {
-      notify(false, '數量不得小於1')
+    if (qty < 1) {
+      notify(false, "數量不得小於1");
     } else {
       const renewData = {
         data: {
           product_id: cart.product.id,
-          qty
-        }
-      }
-      updateItem(cart, renewData, add)
+          qty,
+        },
+      };
+      updateItem(cart, renewData, add);
     }
-  }
+  };
   const addItem = () => {
-    setQty(qty+1)
-    add = true
-    updateCart(qty+1)
-  }
+    setQty(qty + 1);
+    add = true;
+    updateCart(qty + 1);
+  };
   const removeItem = () => {
-    setQty(qty-1)
-    add = false
-    updateCart(qty-1)
-  }
+    setQty(qty - 1);
+    add = false;
+    updateCart(qty - 1);
+  };
   const updateItem = (cart, renewData, add) => {
-    dispatch(setIsCartLoading({isLoading:true}))
-    api.updateCart(cart.id, renewData)
+    dispatch(setIsCartLoading({ isLoading: true }));
+    api
+      .updateCart(cart.id, renewData)
       .then(() => {
-        if (add === true) notify(true, `${cart.product.title}已加入`)
-        else notify(true, `${cart.product.title}已移除`)
-        dispatch(setIsCartLoading({isLoading:false}))
-        getCart()
+        if (add === true) notify(true, `${cart.product.title}已加入`);
+        else notify(true, `${cart.product.title}已移除`);
+        dispatch(setIsCartLoading({ isLoading: false }));
+        getCart();
       })
       .catch((err) => {
-        notify(false, err.response.data.message)
-        dispatch(setIsCartLoading({isLoading:false}))
-      })
-  }
-  useEffect(()=>{
-    setQty(cart.qty)
-  },[cart])
+        notify(false, err.response.data.message);
+        dispatch(setIsCartLoading({ isLoading: false }));
+      });
+  };
+  useEffect(() => {
+    setQty(cart.qty);
+  }, [cart]);
   return (
     <>
       <div className="row">
@@ -185,8 +189,8 @@ function ProductOrderCard({ cart }) {
   );
 }
 
-ProductOrderCard.propTypes={
-  cart: propTypes.object
-}
+ProductOrderCard.propTypes = {
+  cart: propTypes.object,
+};
 
 export default ProductOrderCard;

@@ -48,7 +48,7 @@ function AdminCoupon() {
         setIsScreenLoading(false);
       })
       .catch((err) => {
-        notify(false,err.message)
+        notify(false, err.message);
         setIsScreenLoading(false);
       });
   };

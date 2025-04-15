@@ -26,10 +26,10 @@ function AdminLogin() {
       const { token, expired } = res.data;
       document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
       axios.defaults.headers.common["Authorization"] = token;
-      notify(true,"登入成功")
+      notify(true, "登入成功");
       navigate("/admin");
     } catch (err) {
-      notify(false,err.response.data.message);
+      notify(false, err.response.data.message);
     }
   };
   return (

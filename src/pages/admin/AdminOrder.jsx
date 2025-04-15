@@ -6,6 +6,7 @@ import OrderModal from "../../modals/OrderModal";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { notify } from "../../api/toast";
+import { date, currency } from "../../api/utils";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
@@ -13,7 +14,7 @@ const API_PATH = import.meta.env.VITE_API_PATH;
 const defaultModalState = {
   products: {},
   user: {},
-  is_paid:false
+  is_paid: false,
 };
 
 function AdminOrder() {
@@ -34,23 +35,9 @@ function AdminOrder() {
         setIsScreenLoading(false);
       })
       .catch((err) => {
-        notify(false,err.response.data.message)
+        notify(false, err.response.data.message);
         setIsScreenLoading(false);
       });
-  };
-  const date = (time) => {
-    const localDate = new Date(time * 1000);
-    return localDate.toLocaleDateString();
-  };
-  const currency = (num) => {
-    const n = parseInt(num, 10);
-    return `${n
-      .toFixed(0)
-      .replace(/./g, (c, i, a) =>
-        i && c !== "." && (a.length - i) % 3 === 0
-          ? `, ${c}`.replace(/\s/g, "")
-          : c
-      )}`;
   };
   const handlePageChange = (e, page) => {
     e.preventDefault();
@@ -66,12 +53,12 @@ function AdminOrder() {
       .put(`${BASE_URL}/api/${API_PATH}/admin/order/${item.id}`, { data: item })
       .then((res) => {
         setIsOrderModalOpen(false);
-        notify(true,res.data.message)
+        notify(true, res.data.message);
         getOrders(currentPage);
       })
       .catch((err) => {
         setIsScreenLoading(false);
-        notify(false,err.response.data.message)
+        notify(false, err.response.data.message);
         setIsOrderModalOpen(false);
       });
   };
@@ -94,12 +81,12 @@ function AdminOrder() {
           axios
             .delete(`${BASE_URL}/api/${API_PATH}/admin/orders/all`)
             .then((res) => {
-              notify(true,res.data.message)
+              notify(true, res.data.message);
               setIsScreenLoading(false);
               getOrders();
             })
             .catch((err) => {
-              notify(false,err.response.data.message)
+              notify(false, err.response.data.message);
               setIsScreenLoading(false);
             });
         }
@@ -124,12 +111,12 @@ function AdminOrder() {
           axios
             .delete(`${BASE_URL}/api/${API_PATH}/admin/order/${order.id}`)
             .then((res) => {
-              notify(true,res.data.message + "該訂單")
+              notify(true, res.data.message + "該訂單");
               setIsScreenLoading(false);
               getOrders(currentPage);
             })
             .catch((err) => {
-              notify(false,err.response.data.message)
+              notify(false, err.response.data.message);
               setIsScreenLoading(false);
             });
         }

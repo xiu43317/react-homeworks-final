@@ -1,4 +1,4 @@
-import propTypes, { bool } from "prop-types"
+import propTypes, { bool } from "prop-types";
 import { useEffect, useRef } from "react";
 import { Modal } from "bootstrap";
 import axios from "axios";
@@ -15,7 +15,7 @@ function DeleteCouponModal({ getCoupons, isOpen, setIsOpen, tempCoupon }) {
       getCoupons();
       handleDelCloseCouponModal();
     } catch (err) {
-      notify(false,err.response.data.message)
+      notify(false, err.response.data.message);
     }
   };
   const handleDelCloseCouponModal = () => {
@@ -29,12 +29,12 @@ function DeleteCouponModal({ getCoupons, isOpen, setIsOpen, tempCoupon }) {
         `${BASE_URL}/api/${API_PATH}/admin/coupon/${tempCoupon.id}`
       );
     } catch (err) {
-      notify(false,err.response.data.message)
+      notify(false, err.response.data.message);
     }
   };
   useEffect(() => {
     new Modal(delCouponModalRef.current, {
-      backdrop: 'static',
+      backdrop: "static",
     });
   }, []);
   useEffect(() => {
@@ -92,7 +92,7 @@ DeleteCouponModal.propTypes = {
   getCoupons: propTypes.func,
   isOpen: bool,
   setIsOpen: propTypes.func,
-  tempCoupon: propTypes.object
-}
+  tempCoupon: propTypes.object,
+};
 
 export default DeleteCouponModal;

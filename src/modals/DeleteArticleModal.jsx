@@ -1,21 +1,26 @@
-import propTypes from "prop-types"
+import propTypes from "prop-types";
 import { useEffect, useRef } from "react";
 import { Modal } from "bootstrap";
 import axios from "axios";
 import { notify } from "../api/toast";
 
-
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
 
-function DeleteArticleModal({ getArticles, isOpen, setIsOpen, tempArticle, setIsScreenLoading }) {
+function DeleteArticleModal({
+  getArticles,
+  isOpen,
+  setIsOpen,
+  tempArticle,
+  setIsScreenLoading,
+}) {
   const delProductModalRef = useRef(null);
   const handleDeleteProduct = async () => {
     try {
       await deleteArticle(tempArticle.id);
       getArticles();
     } catch (err) {
-      notify(false,err.response.data.message)
+      notify(false, err.response.data.message);
     }
   };
   const handleDelCloseProductModal = () => {
@@ -24,24 +29,24 @@ function DeleteArticleModal({ getArticles, isOpen, setIsOpen, tempArticle, setIs
     setIsOpen(false);
   };
   const deleteArticle = (id) => {
-    setIsScreenLoading(true)
+    setIsScreenLoading(true);
     axios
       .delete(`${BASE_URL}/api/${API_PATH}/admin/article/${id}`)
       .then((res) => {
-        notify(true,res.data.message)
-        handleDelCloseProductModal()
-        setIsScreenLoading(false)
+        notify(true, res.data.message);
         handleDelCloseProductModal();
-        getArticles()
+        setIsScreenLoading(false);
+        handleDelCloseProductModal();
+        getArticles();
       })
       .catch((err) => {
-        notify(false,err.response.data.message)
-        setIsScreenLoading(false)
-      })
-  }
+        notify(false, err.response.data.message);
+        setIsScreenLoading(false);
+      });
+  };
   useEffect(() => {
     new Modal(delProductModalRef.current, {
-      backdrop: 'static',
+      backdrop: "static",
     });
   }, []);
   useEffect(() => {
@@ -99,7 +104,7 @@ DeleteArticleModal.propTypes = {
   isOpen: propTypes.bool,
   setIsOpen: propTypes.func,
   tempArticle: propTypes.object,
-  setIsScreenLoading: propTypes.func
-}
+  setIsScreenLoading: propTypes.func,
+};
 
 export default DeleteArticleModal;

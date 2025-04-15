@@ -1,4 +1,4 @@
-import propTypes from "prop-types"
+import propTypes from "prop-types";
 import { useEffect, useState, useRef } from "react";
 import { Modal } from "bootstrap";
 

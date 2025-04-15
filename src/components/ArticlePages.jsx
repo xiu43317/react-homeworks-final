@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { useCallback, useEffect, useState } from "react";
 import api from "../api/axios";
 import { notify } from "../api/toast";
@@ -14,7 +14,7 @@ function ArticlePages({ num }) {
       api
         .getArticles(numInt / 10 + 1)
         .then((res) => {
-          if (!res.data.articles) setPrevPageId('');
+          if (!res.data.articles) setPrevPageId("");
           else
             setPrevPageId(
               res.data.articles.filter((item) => item.num === numInt + 1)[0]
@@ -36,7 +36,7 @@ function ArticlePages({ num }) {
         });
     } else if (numInt === 1) {
       // 全部的最後一頁
-      setNextPageId('');
+      setNextPageId("");
       api
         .getArticles(1)
         .then((res) => {
@@ -56,7 +56,7 @@ function ArticlePages({ num }) {
         setNextPageId(next[0]);
       });
       api.getArticles(numInt / 10 + 1).then((res) => {
-        if (!res.data.articles) setPrevPageId('');
+        if (!res.data.articles) setPrevPageId("");
         else
           setNextPageId(
             res.data.articles.filter((item) => item.num === numInt + 1)[0]
@@ -70,7 +70,7 @@ function ArticlePages({ num }) {
             res.data.articles.filter((item) => item.num === numInt - 1)[0]
           );
           if (!res.data.articles.filter((item) => item.num === numInt + 1)[0])
-            setPrevPageId('');
+            setPrevPageId("");
           else
             setPrevPageId(
               res.data.articles.filter((item) => item.num === numInt + 1)[0]
@@ -80,50 +80,52 @@ function ArticlePages({ num }) {
           notify(false, err.response.data.message);
         });
     }
-  },[num]) 
+  }, [num]);
   useEffect(() => {
     getPages();
   }, [getPages]);
   return (
-      <div className="container mt-5">
-        <div className="row">
-          <div className="col-lg-12 mx-auto text-center">
-            <div className="row fs-5">
-              {prevPageId ? (
-                <strong className="col-md-6 mb-3 mb-md-0">
-                  <NavLink
-                    className="text-decoration-none link-dark"
-                    to={`/onenews/${prevPageId.id}/num/${prevPageId.num}`}
-                  >
-                    <i className="bi bi-chevron-double-left"></i>
-                    較舊一篇：{prevPageId.title}
-                  </NavLink>
-                </strong>
-              ):(
-                <strong className="col-md-6 mb-3 mb-md-0"><span> </span></strong>
-              )}
-              {nextPageId ? (
-                <strong className="col-md-6 mb-3 mb-md-0">
-                  <NavLink
-                    className="text-decoration-none link-dark"
-                    to={`/onenews/${nextPageId.id}/num/${nextPageId.num}`}
-                  >
-                    較新一篇：{nextPageId.title}
-                    <i className="bi bi-chevron-double-right"></i>
-                  </NavLink>
-                </strong>
-              ):(
-                <strong className="col-md-6 text-end">  </strong>
-              )}
-            </div>
+    <div className="container mt-5">
+      <div className="row">
+        <div className="col-lg-12 mx-auto text-center">
+          <div className="row fs-5">
+            {prevPageId ? (
+              <strong className="col-md-6 mb-3 mb-md-0">
+                <NavLink
+                  className="text-decoration-none link-dark"
+                  to={`/onenews/${prevPageId.id}/num/${prevPageId.num}`}
+                >
+                  <i className="bi bi-chevron-double-left"></i>
+                  較舊一篇：{prevPageId.title}
+                </NavLink>
+              </strong>
+            ) : (
+              <strong className="col-md-6 mb-3 mb-md-0">
+                <span> </span>
+              </strong>
+            )}
+            {nextPageId ? (
+              <strong className="col-md-6 mb-3 mb-md-0">
+                <NavLink
+                  className="text-decoration-none link-dark"
+                  to={`/onenews/${nextPageId.id}/num/${nextPageId.num}`}
+                >
+                  較新一篇：{nextPageId.title}
+                  <i className="bi bi-chevron-double-right"></i>
+                </NavLink>
+              </strong>
+            ) : (
+              <strong className="col-md-6 text-end"> </strong>
+            )}
           </div>
         </div>
       </div>
+    </div>
   );
 }
 
 ArticlePages.propTypes = {
-  num: PropTypes.string
-}
+  num: PropTypes.string,
+};
 
 export default ArticlePages;

@@ -22,7 +22,7 @@ function AdminDashboard() {
         setIsAuth(true);
       })
       .catch((error) => {
-        notify(false,error.response.data.message)
+        notify(false, error.response.data.message);
         navigate("/Login");
       });
   }, [navigate]);
@@ -31,12 +31,12 @@ function AdminDashboard() {
     axios
       .post(`${url}/logout`)
       .then((res) => {
-        notify(true,res.data.message)
+        notify(true, res.data.message);
         document.cookie = "hexToken=;expires=;";
         navigate("/login");
       })
       .catch((err) => {
-        notify(false,err.response.data.message)
+        notify(false, err.response.data.message);
       });
   };
   useEffect(() => {

@@ -1,4 +1,4 @@
-import propTypes, { object } from "prop-types"
+import propTypes, { object } from "prop-types";
 import { useEffect, useRef } from "react";
 import { Modal } from "bootstrap";
 import axios from "axios";
@@ -15,7 +15,7 @@ function DeleteModal({ getProducts, isOpen, setIsOpen, tempProduct }) {
       getProducts();
       handleDelCloseProductModal();
     } catch (err) {
-      notify(false,err.response.data.message)
+      notify(false, err.response.data.message);
     }
   };
   const handleDelCloseProductModal = () => {
@@ -29,12 +29,12 @@ function DeleteModal({ getProducts, isOpen, setIsOpen, tempProduct }) {
         `${BASE_URL}/api/${API_PATH}/admin/product/${tempProduct.id}`
       );
     } catch (err) {
-      notify(false,err.response.data.message)
+      notify(false, err.response.data.message);
     }
   };
   useEffect(() => {
     new Modal(delProductModalRef.current, {
-      backdrop: 'static',
+      backdrop: "static",
     });
   }, []);
   useEffect(() => {
@@ -92,7 +92,7 @@ DeleteModal.propTypes = {
   getProducts: propTypes.func,
   isOpen: propTypes.bool,
   setIsOpen: propTypes.func,
-  tempProduct: object
-}
+  tempProduct: object,
+};
 
 export default DeleteModal;

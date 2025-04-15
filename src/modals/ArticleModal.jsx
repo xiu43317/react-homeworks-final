@@ -23,14 +23,14 @@ function ArticleModal({
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   //   const htmlToPlainText = (html) => html.replace(/<[^>]*>/g, "");
   const productModalRef = useRef(null);
-  const fileInput = useRef(null)
+  const fileInput = useRef(null);
   const [content, setContent] = useState("");
   const [modalData, setModalData] = useState(tempArticle);
-  const [updateData,setUpdateData] = useState(tempArticle)
+  const [updateData, setUpdateData] = useState(tempArticle);
   const handleCloseProductModal = () => {
     const modalInstance = Modal.getInstance(productModalRef.current);
     modalInstance.hide();
-    fileInput.current.value = ""
+    fileInput.current.value = "";
     setContent("");
     setIsOpen(false);
   };
@@ -49,7 +49,7 @@ function ArticleModal({
         imageUrl: uploadImageUrl,
       });
     } catch (err) {
-      notify(false,err.response.data.message)
+      notify(false, err.response.data.message);
     }
   };
   const updateArticle = (item) => {
@@ -58,13 +58,13 @@ function ArticleModal({
       axios
         .post(`${BASE_URL}/api/${API_PATH}/admin/article`, { data: item })
         .then((res) => {
-          notify(true,res.data.message)
+          notify(true, res.data.message);
           handleCloseProductModal();
           setIsScreenLoading(false);
           getArticles();
         })
         .catch((err) => {
-          notify(false,err.response.data.message)
+          notify(false, err.response.data.message);
           setIsScreenLoading(false);
         });
     } else {
@@ -73,13 +73,13 @@ function ArticleModal({
           data: item,
         })
         .then((res) => {
-          notify(true,res.data.message)
+          notify(true, res.data.message);
           handleCloseProductModal();
           setIsScreenLoading(false);
           getArticles();
         })
         .catch((err) => {
-          notify(false,err.response.data.message)
+          notify(false, err.response.data.message);
           setIsScreenLoading(false);
         });
     }
@@ -94,12 +94,12 @@ function ArticleModal({
       ...modalData,
       [name]: type === "checkbox" ? checked : value,
       create_at: Number(Math.floor(new Date(modalData.create_at) / 1000)),
-    })
-    if(type==="date"){
+    });
+    if (type === "date") {
       setUpdateData({
         ...modalData,
         create_at: Number(Math.floor(new Date(value) / 1000)),
-      })
+      });
     }
   };
   const handleAllData = () => {
@@ -137,7 +137,7 @@ function ArticleModal({
   }, [editorState]);
   useEffect(() => {
     new Modal(productModalRef.current, {
-      backdrop: 'static',
+      backdrop: "static",
     });
   }, []);
   useEffect(() => {
@@ -147,12 +147,12 @@ function ArticleModal({
         content,
       })
     );
-    setUpdateData((updateData)=>
+    setUpdateData((updateData) =>
       setUpdateData({
         ...updateData,
-        content
+        content,
       })
-    )
+    );
   }, [content]);
   useEffect(() => {
     if (isOpen) {
@@ -176,7 +176,7 @@ function ArticleModal({
     });
     setUpdateData({
       ...tempArticle,
-    })
+    });
   }, [tempArticle]);
   return (
     <>

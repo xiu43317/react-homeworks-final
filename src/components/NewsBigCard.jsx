@@ -1,9 +1,11 @@
-import propTypes from "prop-types"
+import propTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 
 function NewsBigCard({ tempArticle }) {
   const path = `/onenews/${tempArticle.id}/num/${tempArticle.num}`;
-  const foamatDate = new Date(tempArticle.create_at * 1000).toLocaleDateString('zh-TW')
+  const foamatDate = new Date(tempArticle.create_at * 1000).toLocaleDateString(
+    "zh-TW"
+  );
   return (
     <>
       <div className="row mb-3 position-relative zoom-in">
@@ -44,7 +46,7 @@ function NewsBigCard({ tempArticle }) {
 }
 
 NewsBigCard.propTypes = {
-  tempArticle: propTypes.object
-}
+  tempArticle: propTypes.object,
+};
 
 export default NewsBigCard;

@@ -1,4 +1,4 @@
-import propTypes from "prop-types"
+import propTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import "../assets/css/newcard.css"
 import AOS from 'aos';

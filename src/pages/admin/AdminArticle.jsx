@@ -5,6 +5,7 @@ import ArticleModal from "../../modals/ArticleModal";
 import DeleteArticleModal from "../../modals/DeleteArticleModal";
 import { notify } from "../../api/toast";
 import axios from "axios";
+import { date } from "../../api/utils";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const API_PATH = import.meta.env.VITE_API_PATH;
@@ -50,19 +51,17 @@ function AdminArticle() {
     }
     setDelIsProductModalOpen(true);
   };
-  const date = (time) => {
-    const localDate = new Date(time * 1000);
-    return localDate.toLocaleDateString();
-  };
-  const getArticles = async(page = 1) => {
+  const getArticles = async (page = 1) => {
     setIsScreenLoading(true);
-    try{
-      const res = await axios.get(`${BASE_URL}/api/${API_PATH}/admin/articles?page=${page}`)
+    try {
+      const res = await axios.get(
+        `${BASE_URL}/api/${API_PATH}/admin/articles?page=${page}`
+      );
       setArticles([...res.data.articles]);
       setPages({ ...res.data.pagination });
       setIsScreenLoading(false);
-    }catch(err){
-      notify(false,err.response.data.message)
+    } catch (err) {
+      notify(false, err.response.data.message);
       setIsScreenLoading(false);
     }
   };
@@ -72,8 +71,10 @@ function AdminArticle() {
   };
   const getArticle = async (id) => {
     setIsScreenLoading(true);
-    try{
-      const res =  await axios.get(`${BASE_URL}/api/${API_PATH}/admin/article/${id}`)
+    try {
+      const res = await axios.get(
+        `${BASE_URL}/api/${API_PATH}/admin/article/${id}`
+      );
       if (!res.data.article.tag) {
         setTempArticle({
           ...res.data.article,
@@ -85,8 +86,8 @@ function AdminArticle() {
         });
       }
       setIsScreenLoading(false);
-    }catch(err){
-      notify(false,err.response.data.message)
+    } catch (err) {
+      notify(false, err.response.data.message);
       setIsScreenLoading(false);
     }
   };

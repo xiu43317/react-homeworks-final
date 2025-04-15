@@ -24,8 +24,8 @@ function NewsPage() {
         setIsScreenLoading(false);
       });
   };
-  const handlePageChange = (e,page) => {
-    e.preventDefault()
+  const handlePageChange = (e, page) => {
+    e.preventDefault();
     getArticles(page);
   };
   useEffect(() => {
@@ -65,9 +65,12 @@ function NewsPage() {
               </div>
             )
         )}
-         <div className="d-flex justify-content-center">
-            <ButtomPagination pageInfo={pageInfo} handlePageChange={ handlePageChange }/>
-         </div>
+        <div className="d-flex justify-content-center">
+          <ButtomPagination
+            pageInfo={pageInfo}
+            handlePageChange={handlePageChange}
+          />
+        </div>
       </div>
     </>
   );
